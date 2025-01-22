@@ -1,6 +1,7 @@
 package app.vistas;
 
 import app.core.RouterCV;
+import app.modelos.*;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ public class VistaJavaFX implements Vista {
     private Stage stage;
 
     private final ObservableList<Jugador> jugadores = FXCollections.observableArrayList();
-    private final ObservableList<VideoJuego> videoJuegos = FXCollections.observableArrayList();
+    private final ObservableList<Videojuego> videoJuegos = FXCollections.observableArrayList();
 
     public VistaJavaFX(RouterCV routerCV) {
         this.routerCV = routerCV;
