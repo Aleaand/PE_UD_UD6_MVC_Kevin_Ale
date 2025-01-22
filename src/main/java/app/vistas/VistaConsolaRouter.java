@@ -1,8 +1,6 @@
 package app.vistas;
 
-import app.core.Router;
 import app.core.RouterCV;
-import app.modelos.Jugador;
 
 import java.util.List;
 import java.util.Scanner;

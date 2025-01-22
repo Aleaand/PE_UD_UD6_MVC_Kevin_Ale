@@ -1,74 +1,91 @@
 package app.modelos;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
-import app.modelos.Jugador;
-import app.modelos.VideoJuego;
-
+@Entity
+@Table(name = "partidas")
 public class Partida {
-    private int id;
-    private Jugador jugador;
-    private VideoJuego videojuego;
-    private int duracion;
-    private LocalDate fecha;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "partidas_id_gen")
+    @SequenceGenerator(name = "partidas_id_gen", sequenceName = "partidas_id_seq", allocationSize = 1)
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    public Partida(int id, Jugador jugador, VideoJuego videojuego, int duracion, LocalDate fecha) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_videojuego")
+    private Videojuego idVideojuego;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_jugador")
+    private Jugador idJugador;
+
+    @Column(name = "fecha_partida")
+    private LocalDate fechaPartida;
+
+    @Column(name = "horas_jugadas")
+    private Integer horasJugadas;
+
+    @Column(name = "puntos_obtenidos")
+    private Integer puntosObtenidos;
+
+    public Partida(int id, Jugador jugador, Videojuego videoJuego, int horasJugadas, int puntosObtenidos, LocalDate fechaPartida) {
         this.id = id;
-        this.jugador = jugador;
-        this.videojuego = videojuego;
-        this.duracion = duracion;
-        this.fecha = fecha;
+        this.idVideojuego = videoJuego;
+        this.idJugador = jugador;
+        this.horasJugadas = horasJugadas;
     }
 
-    // Getters y Setters
-    public int getId() {
+    public Partida() {
+
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Jugador getJugador() {
-        return jugador;
+    public Videojuego getIdVideojuego() {
+        return idVideojuego;
     }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
+    public void setIdVideojuego(Videojuego idVideojuego) {
+        this.idVideojuego = idVideojuego;
     }
 
-    public VideoJuego getVideojuego() {
-        return videojuego;
+    public Jugador getIdJugador() {
+        return idJugador;
     }
 
-    public void setVideojuego(VideoJuego videojuego) {
-        this.videojuego = videojuego;
+    public void setIdJugador(Jugador idJugador) {
+        this.idJugador = idJugador;
     }
 
-    public int getDuracion() {
-        return duracion;
+    public LocalDate getFechaPartida() {
+        return fechaPartida;
     }
 
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
+    public void setFechaPartida(LocalDate fechaPartida) {
+        this.fechaPartida = fechaPartida;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public Integer getHorasJugadas() {
+        return horasJugadas;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setHorasJugadas(Integer horasJugadas) {
+        this.horasJugadas = horasJugadas;
     }
 
-    @Override
-    public String toString() {
-        return "Partida{" +
-                "id=" + id +
-                ", jugador=" + jugador.getNombre() +
-                ", videojuego=" + videojuego.getTitulo() +
-                ", duracion=" + duracion + " minutos" +
-                ", fecha=" + fecha +
-                '}';
+    public Integer getPuntosObtenidos() {
+        return puntosObtenidos;
     }
+
+    public void setPuntosObtenidos(Integer puntosObtenidos) {
+        this.puntosObtenidos = puntosObtenidos;
+    }
+
 }

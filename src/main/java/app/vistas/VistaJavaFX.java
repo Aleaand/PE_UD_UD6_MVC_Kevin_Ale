@@ -1,73 +1,46 @@
 package app.vistas;
 
-import app.core.Router;
 import app.core.RouterCV;
+import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class VistaJavaFX implements Vista {
-    private final RouterCV router;
+    private final RouterCV routerCV;
     private Stage stage;
 
-    public VistaJavaFX(RouterCV router) {
-        this.router = router;
+    private final ObservableList<Jugador> jugadores = FXCollections.observableArrayList();
+    private final ObservableList<VideoJuego> videoJuegos = FXCollections.observableArrayList();
+
+    public VistaJavaFX(RouterCV routerCV) {
+        this.routerCV = routerCV;
     }
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    @Override
     public void iniciar() {
-        VBox root = new VBox();
-        Label titleLabel = new Label("Gestión de Jugadores");
+        VBox layout = new VBox(10);
 
-        // Botón para agregar jugador
-        Button agregarJugadorButton = new Button("Agregar Jugador");
-        agregarJugadorButton.setOnAction(e -> router.ejecutarAccion("jugadores", "agregarJugador", "Mario", 10, 2000));
+        Label titleLabel = new Label("Gestión de Partidas - JavaFX");
 
-        // Botón para listar jugadores
-        Button listarJugadoresButton = new Button("Listar Jugadores");
-        listarJugadoresButton.setOnAction(e -> {
-            Object resultado = router.ejecutarAccion("jugadores", "listarJugadores");
-            if (resultado instanceof Iterable<?>) {
-                ((Iterable<?>) resultado).forEach(System.out::println);
-            }
-        });
+        Button agregarJugadorBtn = new Button("Agregar Jugador");
+        Button agregarVideoJuegoBtn = new Button("Agregar VideoJuego");
 
-        root.getChildren().addAll(titleLabel, agregarJugadorButton, listarJugadoresButton);
 
-        Scene scene = new Scene(root, 400, 300);
+        layout.getChildren().addAll(
+                titleLabel,
+                agregarJugadorBtn, agregarVideoJuegoBtn
+        );
+        Scene scene = new Scene(layout, 700, 600);
+        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         stage.setScene(scene);
-        stage.setTitle("Vista JavaFX");
+        stage.setTitle("Gestión de VideoJuegos y Partidas");
         stage.show();
     }
 
-    public void start(Stage stage) {
-        VBox root = new VBox();
-        Label titleLabel = new Label("Gestión de Jugadores");
-
-        // Botón para agregar jugador
-        Button agregarJugadorButton = new Button("Agregar Jugador");
-        agregarJugadorButton.setOnAction(e -> router.ejecutarAccion("jugadores", "agregarJugador", "Mario", 10, 2000));
-
-        // Botón para listar jugadores
-        Button listarJugadoresButton = new Button("Listar Jugadores");
-        listarJugadoresButton.setOnAction(e -> {
-            Object resultado = router.ejecutarAccion("jugadores", "listarJugadores");
-            if (resultado instanceof Iterable<?>) {
-                ((Iterable<?>) resultado).forEach(System.out::println);
-            }
-        });
-
-        root.getChildren().addAll(titleLabel, agregarJugadorButton, listarJugadoresButton);
-
-        Scene scene = new Scene(root, 400, 300);
-        stage.setScene(scene);
-        stage.setTitle("Vista JavaFX");
-        stage.show();
-    }
 }
-

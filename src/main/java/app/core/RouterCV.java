@@ -66,7 +66,7 @@ public class RouterCV {
         return null;
     }
 
-    // Método para convertir parámetros a tipos adecuados
+    // Metodo para convertir parámetros a tipos adecuados
     private Class<?>[] convertirParametros(Object[] parametros) {
         if (parametros == null) {
             return new Class<?>[0];

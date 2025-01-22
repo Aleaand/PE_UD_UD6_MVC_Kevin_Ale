@@ -10,27 +10,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-   /*
-    public void iniciar() {
-        Router router = new Router();
-
-        // Registrar rutas
-        router.registrarRuta("jugadores", new JugadorControlador());
-        router.registrarRuta("videojuegos", new VideoJuegoControlador());
-
-        // Iniciar vista con el router
-        //VistaConsolaRouter vista = new VistaConsolaRouter(router);
-        //vista.mostrarMenu();
-
-        // Registrar vistas
-        router.registrarRuta("vistaJavaFX", new VistaJavaFX(router));
-
-        // Iniciar la vista JavaFX desde el Router
-        router.inicializarVista("vistaJavaFX");
-
-    }
-*/
-    @Override
+  @Override
     public void start(Stage primaryStage) {
         // Crear el router con el Stage principal
         //Router router = new Router(primaryStage);
@@ -45,9 +25,9 @@ public class App extends Application {
         router.registrarVista("vistaConsola", new VistaConsolaRouter(router));
 
         // Inicializar la vista deseada
-        //router.inicializarVista("vistaJavaFX");
+        router.inicializarVista("vistaJavaFX");
         // Alternativamente, puedes inicializar la vista de consola:
-        router.inicializarVista("vistaConsola");
+        //router.inicializarVista("vistaConsola");
     }
 
     public static void main(String[] args) {

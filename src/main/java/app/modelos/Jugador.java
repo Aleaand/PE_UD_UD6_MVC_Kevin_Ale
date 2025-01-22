@@ -1,26 +1,46 @@
 package app.modelos;
 
+import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "jugadores")
 public class Jugador {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jugadores_id_gen")
+    @SequenceGenerator(name = "jugadores_id_gen", sequenceName = "jugadores_id_seq", allocationSize = 1)
+    @Column(name = "id", nullable = false)
+    private Integer id;
+
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
-    private int nivel;
-    private int puntuacion;
 
-    public Jugador() {}
+    @Column(name = "nivel")
+    private Integer nivel;
 
-    public Jugador(int id, String nombre, int nivel, int puntuacion) {
+    @Column(name = "puntuacion")
+    private Integer puntuacion;
+
+    @OneToMany(mappedBy = "idJugador")
+    private Set<Estadistica> estadisticas = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "idJugador")
+    private Set<Partida> partidas = new LinkedHashSet<>();
+
+
+    public Jugador(Integer id, String nombre, Integer nivel, Integer puntuacion) {
         this.id = id;
         this.nombre = nombre;
         this.nivel = nivel;
         this.puntuacion = puntuacion;
     }
 
-    // Getters y Setters
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,29 +52,36 @@ public class Jugador {
         this.nombre = nombre;
     }
 
-    public int getNivel() {
+    public Integer getNivel() {
         return nivel;
     }
 
-    public void setNivel(int nivel) {
+    public void setNivel(Integer nivel) {
         this.nivel = nivel;
     }
 
-    public int getPuntuacion() {
+    public Integer getPuntuacion() {
         return puntuacion;
     }
 
-    public void setPuntuacion(int puntuacion) {
+    public void setPuntuacion(Integer puntuacion) {
         this.puntuacion = puntuacion;
     }
 
-    @Override
-    public String toString() {
-        return "Jugador{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", puntuacion=" + puntuacion +
-                '}';
+    public Set<Estadistica> getEstadisticas() {
+        return estadisticas;
     }
+
+    public void setEstadisticas(Set<Estadistica> estadisticas) {
+        this.estadisticas = estadisticas;
+    }
+
+    public Set<Partida> getPartidas() {
+        return partidas;
+    }
+
+    public void setPartidas(Set<Partida> partidas) {
+        this.partidas = partidas;
+    }
+
 }

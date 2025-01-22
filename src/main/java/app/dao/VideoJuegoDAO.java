@@ -1,15 +1,15 @@
 package app.dao;
 
-import app.modelos.VideoJuego;
+import app.modelos.Videojuego;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoJuegoDAO implements DAO<VideoJuego> {
+public class VideoJuegoDAO implements DAO<Videojuego> {
 
     @Override
-    public void guardar(VideoJuego videojuego) {
+    public void guardar(Videojuego videojuego) {
         String sql = "INSERT INTO videojuegos (titulo, genero, precio) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConfig.getConnection();
@@ -17,7 +17,7 @@ public class VideoJuegoDAO implements DAO<VideoJuego> {
 
             stmt.setString(1, videojuego.getTitulo());
             stmt.setString(2, videojuego.getGenero());
-            stmt.setDouble(3, videojuego.getPrecio());
+            stmt.setBigDecimal(3, videojuego.getPrecio());
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -30,9 +30,9 @@ public class VideoJuegoDAO implements DAO<VideoJuego> {
     }
 
     @Override
-    public VideoJuego buscarPorId(int id) {
+    public Videojuego buscarPorId(int id) {
         String sql = "SELECT * FROM videojuegos WHERE id = ?";
-        VideoJuego videojuego = null;
+        Videojuego videojuego = null;
 
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -41,7 +41,7 @@ public class VideoJuegoDAO implements DAO<VideoJuego> {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                videojuego = new VideoJuego(rs.getInt("id"), rs.getString("titulo"),
+                videojuego = new Videojuego(rs.getInt("id"), rs.getString("titulo"),
                         rs.getString("genero"), rs.getDouble("precio"));
             }
         } catch (SQLException e) {
@@ -51,16 +51,16 @@ public class VideoJuegoDAO implements DAO<VideoJuego> {
     }
 
     @Override
-    public List<VideoJuego> listarTodos() {
+    public List<Videojuego> listarTodos() {
         String sql = "SELECT * FROM videojuegos";
-        List<VideoJuego> videojuegos = new ArrayList<>();
+        List<Videojuego> videojuegos = new ArrayList<>();
 
         try (Connection conn = DatabaseConfig.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                videojuegos.add(new VideoJuego(rs.getInt("id"), rs.getString("titulo"),
+                videojuegos.add(new Videojuego(rs.getInt("id"), rs.getString("titulo"),
                         rs.getString("genero"), rs.getDouble("precio")));
             }
         } catch (SQLException e) {
@@ -78,6 +78,7 @@ public class VideoJuegoDAO implements DAO<VideoJuego> {
 
             stmt.setInt(1, id);
             stmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
