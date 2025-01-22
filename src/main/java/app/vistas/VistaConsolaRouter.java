@@ -19,24 +19,27 @@ public class VistaConsolaRouter implements Vista{
 
         do {
             System.out.println("\n=== Menú Principal con Router ===");
-            System.out.println("1. Agregar Jugador");
-            System.out.println("2. Listar Jugadores");
-            System.out.println("3. Agregar Videojuego");
-            System.out.println("4. Listar Videojuegos");
-            System.out.println("5. Salir");
+            System.out.println("1. Jugadores");
+            System.out.println("2. Videojuego");
+            System.out.println("3. Partida");
+            System.out.println("4. Estadistica");
+            System.out.println("5. Salir del sistema");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Consumir nueva línea
 
-            switch (opcion) {
-                case 1 -> agregarJugador(scanner);
-                case 2 -> listarJugadores();
-                case 3 -> agregarVideojuego(scanner);
-                case 4 -> listarVideojuegos();
+           /* switch (opcion) {
+                case 1 -> menuJugador(scanner);
+                case 2 -> menuVideojuego(scanner);
+                case 3 -> menuPartida(scanner);
+                case 4 -> menuEstadistica(scanner);
                 case 5 -> System.out.println("Saliendo del sistema...");
                 default -> System.out.println("Opción no válida. Intente nuevamente.");
-            }
-        } while (opcion != 5);
+            }*/
+        } while (opcion != 4);
+    }
+
+    private void menuJugador(Scanner scanner) {
     }
 
     private void agregarJugador(Scanner scanner) {
