@@ -34,9 +34,11 @@ public class Partida {
         this.idVideojuego = videoJuego;
         this.idJugador = jugador;
         this.horasJugadas = horasJugadas;
+        this.puntosObtenidos = puntosObtenidos;
+        this.fechaPartida = fechaPartida;
     }
 
-    public Partida() {
+    public Partida(Jugador jugador, Videojuego videojuego, int horasJugadas, int puntosObtenidos, String fechaPartida) {
 
     }
 

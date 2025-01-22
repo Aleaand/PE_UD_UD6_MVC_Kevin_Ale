@@ -105,7 +105,7 @@ public class PartidaDAO implements DAO<Partida> {
     }
 
     @Override
-    public void eliminar(int id) {
+    public String eliminar(int id) {
         String sql = "DELETE FROM Partidas WHERE id = ?";
 
         try (Connection conn = DatabaseConfig.getConnection();
@@ -113,8 +113,33 @@ public class PartidaDAO implements DAO<Partida> {
 
             stmt.setInt(1, id);  // Establecer el ID de la partida
             stmt.executeUpdate();
+            return "Partida eliminada";
         } catch (SQLException e) {
-            e.printStackTrace();
+            return "Partida no eliminada";
+        }
+    }
+    public String actualizar(Partida partida) {
+        String sql = "UPDATE Partidas SET id_videojuego = ?, id_jugador = ?, fecha_partida = ?, " +
+                "horas_jugadas = ?, puntos_obtenidos = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, partida.getIdVideojuego().getId());  // ID del videojuego
+            stmt.setInt(2, partida.getIdJugador().getId());     // ID del jugador
+            stmt.setDate(3, Date.valueOf(partida.getFechaPartida())); // Fecha de la partida
+            stmt.setInt(4, partida.getHorasJugadas());            // Horas jugadas
+            stmt.setInt(5, partida.getPuntosObtenidos());    // Puntos obtenidos
+            stmt.setInt(6, partida.getId());                     // ID de la partida para actualizar
+
+            int filasActualizadas = stmt.executeUpdate();
+            if (filasActualizadas > 0) {
+                return ("Partida actualizada con éxito: " + partida);
+            } else {
+                return("No se encontró la partida con ID: " + partida.getId());
+            }
+        } catch (SQLException e) {
+            return "Hubo un error al actualizar la partida con ID: " + partida.getId();
         }
     }
 }

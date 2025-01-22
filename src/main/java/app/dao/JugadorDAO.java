@@ -70,7 +70,7 @@ public class JugadorDAO implements DAO<Jugador> {
     }
 
     @Override
-    public void eliminar(int id) {
+    public String eliminar(int id) {
         String sql = "DELETE FROM jugadores WHERE id = ?";
 
         try (Connection conn = DatabaseConfig.getConnection();
@@ -78,8 +78,31 @@ public class JugadorDAO implements DAO<Jugador> {
 
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            return "Jugador eliminado";
         } catch (SQLException e) {
-            e.printStackTrace();
+            return "jugador no eliminado";
+        }
+    }
+    // Método para actualizar los detalles de un jugador en la base de datos
+    public String actualizar(Jugador jugador) {
+        String sql = "UPDATE jugadores SET nombre = ?, nivel = ?, puntuacion = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, jugador.getNombre());
+            stmt.setInt(2, jugador.getNivel());
+            stmt.setInt(3, jugador.getPuntuacion());
+            stmt.setInt(4, jugador.getId());
+
+            int filasActualizadas = stmt.executeUpdate();
+            if (filasActualizadas > 0) {
+                return "Jugador actualizado con éxito: " + jugador;
+            } else {
+                return "No se encontró el jugador con ID: " + jugador.getId();
+            }
+        } catch (SQLException e) {
+            return "hubo un error al actualizar el jugador";
         }
     }
 }
