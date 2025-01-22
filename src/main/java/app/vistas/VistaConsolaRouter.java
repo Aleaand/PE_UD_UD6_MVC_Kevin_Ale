@@ -2,6 +2,8 @@ package app.vistas;
 
 import app.core.RouterCV;
 import app.modelos.Jugador;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,20 +28,117 @@ public class VistaConsolaRouter implements Vista{
             System.out.println("5. Salir del sistema");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir nueva línea
+            scanner.nextLine();
 
-           /* switch (opcion) {
+            switch (opcion) {
                 case 1 -> menuJugador(scanner);
                 case 2 -> menuVideojuego(scanner);
                 case 3 -> menuPartida(scanner);
                 case 4 -> menuEstadistica(scanner);
                 case 5 -> System.out.println("Saliendo del sistema...");
                 default -> System.out.println("Opción no válida. Intente nuevamente.");
-            }*/
-        } while (opcion != 4);
+            }
+        } while (opcion != 5);
     }
 
     private void menuJugador(Scanner scanner) {
+        int opcion;
+        do {
+            System.out.println("\n=== Menú de Jugadores ===");
+            System.out.println("1. Agregar Jugador");
+            System.out.println("2. Actualizar Jugador");
+            System.out.println("3. Eliminar Jugador");
+            System.out.println("4. Ver Jugador por ID");
+            System.out.println("5. Ver todos los Jugadores");
+            System.out.println("6. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1 -> agregarJugador(scanner);
+                case 2 -> actualizaJugador(scanner);
+                case 3 -> eliminarJugador(scanner);
+                case 4 -> verJugadorID(scanner);
+                case 5 -> listarJugadores();
+                case 6 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        } while (opcion != 6);
+    }
+
+    private void menuVideojuego(Scanner scanner) {
+        int opcion;
+        do {
+            System.out.println("\n=== Menú de Videojuegos ===");
+            System.out.println("1. Agregar Videojuego");
+            System.out.println("2. Actualizar Videojuego");
+            System.out.println("3. Eliminar Videojuego");
+            System.out.println("4. Ver Videojuego por ID");
+            System.out.println("5. Ver todos los Videojuegos");
+            System.out.println("6. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir nueva línea
+
+            switch (opcion) {
+                case 1 -> agregarVideojuego(scanner);
+                case 2 -> actualizarVideojuego(scanner);
+                case 3 -> eliminarVideojuego(scanner);
+                case 4 -> verVideojuegoID(scanner);
+                case 5 -> listarVideojuegos();
+                case 6 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        } while (opcion != 6);
+    }
+
+    private void menuPartida(Scanner scanner) {
+        int opcion;
+        do {
+            System.out.println("\n=== Menú de Partidas ===");
+            System.out.println("1. Agregar Partida");
+            System.out.println("2. Actualizar Partida");
+            System.out.println("3. Eliminar Partida");
+            System.out.println("4. Ver Partida por ID");
+            System.out.println("5. Ver todas las Partidas");
+            System.out.println("6. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir nueva línea
+
+            switch (opcion) {
+                case 1 -> agregarPartida(scanner);
+                case 2 -> actualizarPartida(scanner);
+                case 3 -> eliminarPartida(scanner);
+                case 4 -> verPartidaID(scanner);
+                case 5 -> listarPartidas();
+                case 6 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        } while (opcion != 6);
+    }
+
+    private void menuEstadistica(Scanner scanner) {
+        int opcion;
+        do {
+            System.out.println("\n=== Menú de Estadísticas ===");
+            System.out.println("1. Ver Estadísticas de horas de juego");
+            System.out.println("2. Ver Estadísticas de puntuación");
+            System.out.println("3. Ver Estadísticas de experiencia");
+            System.out.println("4. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir nueva línea
+
+            switch (opcion) {
+                case 1 -> verEstadisticasHoras();
+                case 2 -> verEstadisticasPuntuacion();
+                case 3 -> verEstadisticasExperiencia();
+                case 4 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        } while (opcion != 4);
     }
 
     private void agregarJugador(Scanner scanner) {
@@ -50,14 +149,61 @@ public class VistaConsolaRouter implements Vista{
         System.out.print("Ingrese puntuación del jugador: ");
         int puntuacion = scanner.nextInt();
 
-        router.ejecutarAccion("jugadores", "agregarJugador", nombre, nivel, puntuacion);
+        System.out.println(router.ejecutarAccion("jugadores", "agregarJugador", nombre, nivel, puntuacion));
     }
 
+    private void actualizaJugador(Scanner scanner) {
+        String nombre = "";
+        int nivel = 0;
+        int puntuacion = 0;
+
+        System.out.println("Desea modificar el nombre del jugador? (s/n):");
+        String respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese el nuevo nombre del jugador: ");
+            nombre = scanner.nextLine();
+        } else {
+            System.out.println("El nombre no se modificará.");
+        }
+
+        System.out.println("Desea modificar el nivel del jugador? (s/n):");
+        respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese el nuevo nivel del jugador: ");
+            nivel = scanner.nextInt();
+        } else {
+            System.out.println("El nivel no se modificará.");
+        }
+
+        System.out.println("Desea modificar la puntuación del jugador? (s/n):");
+        scanner.nextLine();
+        respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese la nueva puntuación del jugador: ");
+            puntuacion = scanner.nextInt();
+        } else {
+            System.out.println("La puntuación no se modificará.");
+        }
+
+        System.out.println(router.ejecutarAccion("jugadores", "actualizarJugador", nombre, nivel, puntuacion));
+    }
+    private void eliminarJugador(Scanner scanner) {
+        System.out.print("Ingrese ID del jugador que desea eliminar: ");
+        int id = scanner.nextInt();
+        System.out.println(router.ejecutarAccion("jugadores", "eliminarJugador", id));
+    }
+
+    private void verJugadorID(Scanner scanner) {
+        System.out.print("Ingrese ID del jugador que desea ver: ");
+        int id = scanner.nextInt();
+        System.out.println(router.ejecutarAccion("jugadores", "verJugadorID", id));
+    }
     private void listarJugadores() {
-        List<Jugador> jugadores =  (List<Jugador>) router.ejecutarAccion("jugadores", "listarJugadores");
-        jugadores.forEach(System.out::println);
+        System.out.println(router.ejecutarAccion("jugadores", "listarJugadores"));
     }
-
     private void agregarVideojuego(Scanner scanner) {
         System.out.print("Ingrese título del videojuego: ");
         String titulo = scanner.nextLine();
@@ -66,11 +212,157 @@ public class VistaConsolaRouter implements Vista{
         System.out.print("Ingrese precio del videojuego: ");
         double precio = scanner.nextDouble();
 
-        router.ejecutarAccion("videojuegos", "agregarVideojuego", titulo, genero, precio);
+        System.out.println(router.ejecutarAccion("videojuegos", "agregarVideojuego", titulo, genero, precio));
+    }
+
+    private void actualizarVideojuego(Scanner scanner) {
+        String titulo = "";
+        String genero = "";
+        double precio = 0.0;
+
+        System.out.println("Desea modificar el título del videojuego? (s/n):");
+        String respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese el nuevo título del videojuego: ");
+            titulo = scanner.nextLine();
+        } else {
+            System.out.println("El título no se modificará.");
+        }
+
+        System.out.println("Desea modificar el género del videojuego? (s/n):");
+        respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese el nuevo género del videojuego: ");
+            genero = scanner.nextLine();
+        } else {
+            System.out.println("El género no se modificará.");
+        }
+
+        System.out.println("Desea modificar el precio del videojuego? (s/n):");
+        respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese el nuevo precio del videojuego: ");
+            precio = scanner.nextDouble();
+        } else {
+            System.out.println("El precio no se modificará.");
+        }
+
+        System.out.println(router.ejecutarAccion("videojuegos", "actualizarVideojuego", titulo, genero, precio));
+    }
+
+    private void eliminarVideojuego(Scanner scanner) {
+        System.out.print("Ingrese ID del videojuego que desea eliminar: ");
+        int id = scanner.nextInt();
+        System.out.println(router.ejecutarAccion("videojuegos", "eliminarVideojuego", id));
+    }
+
+    private void verVideojuegoID(Scanner scanner) {
+        System.out.print("Ingrese ID del videojuego que desea ver: ");
+        int id = scanner.nextInt();
+        System.out.println(router.ejecutarAccion("videojuegos", "verVideojuegoID", id));
     }
 
     private void listarVideojuegos() {
-        router.ejecutarAccion("videojuegos", "listarVideojuegos");
+        System.out.println(router.ejecutarAccion("videojuegos", "listarVideojuegos"));
+    }
+
+    private void agregarPartida(Scanner scanner) {
+        System.out.print("Ingrese ID del jugador: ");
+        int idJugador = scanner.nextInt();
+        scanner.nextLine();  // Limpiar el buffer de la línea pendiente
+        System.out.print("Ingrese ID del videojuego: ");
+        int idVideojuego = scanner.nextInt();
+        scanner.nextLine();  // Limpiar el buffer de la línea pendiente
+        System.out.print("Ingrese duración de la partida (en minutos): ");
+        int duracion = scanner.nextInt();
+        scanner.nextLine();  // Limpiar el buffer de la línea pendiente
+        System.out.print("Ingrese fecha de la partida (formato yyyy-mm-dd): ");
+        String fechaStr = scanner.nextLine();
+        LocalDate fecha = LocalDate.parse(fechaStr);
+
+        System.out.println(router.ejecutarAccion("partidas", "agregarPartida", idJugador, idVideojuego, duracion, fecha));
+    }
+
+    private void actualizarPartida(Scanner scanner) {
+        int idJugador = 0;
+        int idVideojuego = 0;
+        int duracion = 0;
+        LocalDate fecha = null;
+
+        System.out.println("Desea modificar el ID del jugador? (s/n):");
+        String respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese el nuevo ID del jugador: ");
+            idJugador = scanner.nextInt();
+            scanner.nextLine();  // Limpiar el buffer
+        } else {
+            System.out.println("El ID del jugador no se modificará.");
+        }
+
+        System.out.println("Desea modificar el ID del videojuego? (s/n):");
+        respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese el nuevo ID del videojuego: ");
+            idVideojuego = scanner.nextInt();
+            scanner.nextLine();  // Limpiar el buffer
+        } else {
+            System.out.println("El ID del videojuego no se modificará.");
+        }
+
+        System.out.println("Desea modificar la duración de la partida? (s/n):");
+        respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese la nueva duración de la partida (en minutos): ");
+            duracion = scanner.nextInt();
+            scanner.nextLine();  // Limpiar el buffer
+        } else {
+            System.out.println("La duración no se modificará.");
+        }
+
+        System.out.println("Desea modificar la fecha de la partida? (s/n):");
+        respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            System.out.print("Ingrese la nueva fecha de la partida (formato yyyy-mm-dd): ");
+            String fechaStr = scanner.nextLine();
+            fecha = LocalDate.parse(fechaStr);
+        } else {
+            System.out.println("La fecha no se modificará.");
+        }
+
+        System.out.println(router.ejecutarAccion("partidas", "actualizarPartida", idJugador, idVideojuego, duracion, fecha));
+    }
+
+    private void eliminarPartida(Scanner scanner) {
+        System.out.print("Ingrese ID de la partida que desea eliminar: ");
+        int id = scanner.nextInt();
+        System.out.println(router.ejecutarAccion("partidas", "eliminarPartida", id));
+    }
+
+    private void verPartidaID(Scanner scanner) {
+        System.out.print("Ingrese ID de la partida que desea ver: ");
+        int id = scanner.nextInt();
+        System.out.println(router.ejecutarAccion("partidas", "verPartidaID", id));
+    }
+
+    private void listarPartidas() {
+        System.out.println(router.ejecutarAccion("partidas", "listarPartidas"));
+    }
+    //MIRAR BIEN
+    private void verEstadisticasHoras() {
+        System.out.println(router.ejecutarAccion("partidas", "verEstadisticasHoras"));
+    }
+    private void verEstadisticasPuntuacion() {
+        System.out.println(router.ejecutarAccion("jugadores", "verEstadisticasPuntuacion"));
+    }
+    private void verEstadisticasExperiencia() {
+        System.out.println(router.ejecutarAccion("jugadores", "verEstadisticasExperiencia"));
     }
 }
 
