@@ -1,6 +1,7 @@
 package app.modelos;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -28,7 +29,6 @@ public class Partida {
 
     @Column(name = "puntos_obtenidos")
     private Integer puntosObtenidos;
-
     public Partida(int id, Jugador jugador, Videojuego videoJuego, int horasJugadas, int puntosObtenidos, LocalDate fechaPartida) {
         this.id = id;
         this.idVideojuego = videoJuego;
@@ -45,7 +45,6 @@ public class Partida {
         this.puntosObtenidos = puntosObtenidos;
         this.fechaPartida = fechaPartida;
     }
-
     public Integer getId() {
         return id;
     }

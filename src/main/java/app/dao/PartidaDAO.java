@@ -1,10 +1,9 @@
 package app.dao;
 
-import app.modelos.Partida;
 import app.modelos.Jugador;
+import app.modelos.Partida;
 import app.modelos.Videojuego;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 public class PartidaDAO implements DAO<Partida> {
 
     @Override
-    public void guardar(Partida partida) {
+    public String guardar(Partida partida) {
         String sql = "INSERT INTO Partidas (id_videojuego, id_jugador, fecha_partida, horas_jugadas, puntos_obtenidos) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConfig.getConnection();
@@ -32,8 +31,9 @@ public class PartidaDAO implements DAO<Partida> {
             if (rs.next()) {
                 partida.setId(rs.getInt(1));  // Establecer el ID generado
             }
+            return "Partida guardada con exito";
         } catch (SQLException e) {
-            e.printStackTrace();
+            return "Error al guardar partida";
         }
     }
 
@@ -74,8 +74,8 @@ public class PartidaDAO implements DAO<Partida> {
     @Override
     public List<Partida> listarTodos() {
         String sql = "SELECT p.id, p.horas_jugadas, p.puntos_obtenidos, p.fecha_partida, " +
-                "j.id AS jugador_id, j.nombre AS jugador_nombre,j.puntuacion, j.nivel" +
-                "v.id AS videojuego_id, v.nombre AS videojuego_nombre, v.genero,v.precio" +
+                "j.id AS jugador_id, j.nombre AS jugador_nombre, j.puntuacion, j.nivel," +
+                "v.id AS videojuego_id, v.titulo AS videojuego_nombre, v.genero, v.precio " +
                 "FROM Partidas p " +
                 "JOIN Jugadores j ON p.id_jugador = j.id " +
                 "JOIN Videojuegos v ON p.id_videojuego = v.id";

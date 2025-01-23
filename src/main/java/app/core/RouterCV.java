@@ -1,5 +1,8 @@
 package app.core;
 
+import app.modelos.Jugador;
+import app.modelos.Partida;
+import app.modelos.Videojuego;
 import app.vistas.Vista;
 import app.vistas.VistaJavaFX;
 import javafx.stage.Stage;
@@ -75,14 +78,19 @@ public class RouterCV {
         // Mapear cada parámetro a su clase, manejando primitivas correctamente
         return java.util.Arrays.stream(parametros)
                 .map(parametro -> {
+                    if (parametro == null) return Object.class; // Manejo de null
                     if (parametro instanceof Integer) return int.class; // Convertir Integer a int
                     if (parametro instanceof Double) return double.class; // Convertir Double a double
                     if (parametro instanceof Float) return float.class; // Convertir Float a float
                     if (parametro instanceof Boolean) return boolean.class; // Convertir Boolean a boolean
                     if (parametro instanceof Long) return long.class; // Convertir Long a long
-                    return parametro.getClass();
+                    if (parametro instanceof Jugador) return Jugador.class; // Manejo específico para Juego
+                    if (parametro instanceof Videojuego) return Videojuego.class; // Manejo específico para Videojuego
+                    if (parametro instanceof Partida) return Partida.class; // Manejo específico para Partida
+                    return parametro.getClass(); // Cualquier otro tipo
                 })
                 .toArray(Class<?>[]::new);
+
     }
 }
 

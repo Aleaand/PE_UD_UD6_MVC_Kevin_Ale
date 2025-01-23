@@ -1,6 +1,7 @@
 package app.core;
 
 import app.controladores.JugadorControlador;
+import app.controladores.PartidaControlador;
 import app.controladores.VideoJuegoControlador;
 import app.vistas.VistaConsolaRouter;
 import app.vistas.VistaJavaFX;
@@ -19,7 +20,7 @@ public class App extends Application {
         // Registrar controladores
         router.registrarControlador("jugadores", new JugadorControlador());
         router.registrarControlador("videojuegos", new VideoJuegoControlador());
-      router.registrarControlador("partidas", new VideoJuegoControlador());
+      router.registrarControlador("partidas", new PartidaControlador());
 
         // Registrar vistas
         router.registrarVista("vistaJavaFX", new VistaJavaFX(router));

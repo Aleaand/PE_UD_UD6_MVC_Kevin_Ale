@@ -9,7 +9,7 @@ import java.util.List;
 public class VideoJuegoDAO implements DAO<Videojuego> {
 
     @Override
-    public void guardar(Videojuego videojuego) {
+    public String guardar(Videojuego videojuego) {
         String sql = "INSERT INTO videojuegos (titulo, genero, precio) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConfig.getConnection();
@@ -24,8 +24,9 @@ public class VideoJuegoDAO implements DAO<Videojuego> {
             if (rs.next()) {
                 videojuego.setId(rs.getInt(1));
             }
+            return "Videojuego guardado";
         } catch (SQLException e) {
-            e.printStackTrace();
+            return "Videojuego no guardado";
         }
     }
 

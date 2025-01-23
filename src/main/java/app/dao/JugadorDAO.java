@@ -9,7 +9,7 @@ import java.util.List;
 public class JugadorDAO implements DAO<Jugador> {
 
     @Override
-    public void guardar(Jugador jugador) {
+    public String guardar(Jugador jugador) {
         String sql = "INSERT INTO jugadores (nombre, nivel, puntuacion) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConfig.getConnection();
@@ -24,8 +24,9 @@ public class JugadorDAO implements DAO<Jugador> {
             if (rs.next()) {
                 jugador.setId(rs.getInt(1));
             }
+            return "Jugador guardado";
         } catch (SQLException e) {
-            e.printStackTrace();
+            return "Error al guardar";
         }
     }
 

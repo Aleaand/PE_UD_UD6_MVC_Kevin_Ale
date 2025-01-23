@@ -1,7 +1,9 @@
 package app.modelos;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import org.hibernate.Hibernate;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -33,7 +35,7 @@ public class EstadisticaId implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         EstadisticaId entity = (EstadisticaId) o;
         return Objects.equals(this.idJugador, entity.idJugador) &&
                 Objects.equals(this.idVideojuego, entity.idVideojuego);
@@ -44,11 +46,4 @@ public class EstadisticaId implements Serializable {
         return Objects.hash(idJugador, idVideojuego);
     }
 
-    @Override
-    public String toString() {
-        return "EstadisticaId{" +
-                "idJugador=" + idJugador +
-                ", idVideojuego=" + idVideojuego +
-                '}';
-    }
 }

@@ -13,13 +13,13 @@ public class JugadorControlador {
     public String agregarJugador(String nombre, int nivel, int puntuacion) {
         int id = jugadores.size() + 1;
         Jugador jugador = new Jugador(id, nombre, nivel, puntuacion);
-        jugadorDAO.guardar(jugador);
-        return jugador.toString();
+
+        return jugadorDAO.guardar(jugador);
     }
     public String actualizarJugador (int id,String nombre, int nivel, int puntuacion) {
         Jugador jugador = new Jugador(id, nombre, nivel, puntuacion);
-        jugadorDAO.actualizar(jugador);
-        return jugador.toString();
+
+        return jugadorDAO.actualizar(jugador);
     }
     public String eliminarJugador (int id){
         return jugadorDAO.eliminar(id);

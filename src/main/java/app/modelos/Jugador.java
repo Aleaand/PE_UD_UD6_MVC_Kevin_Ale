@@ -1,34 +1,29 @@
 package app.modelos;
 
-import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "jugadores")
-public class Jugador {
+public class Jugador{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jugadores_id_gen")
-    @SequenceGenerator(name = "jugadores_id_gen", sequenceName = "jugadores_id_seq", allocationSize = 1)
+    @ColumnDefault("nextval('jugadores_id_seq')")
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
 
+    @ColumnDefault("0")
     @Column(name = "nivel")
     private Integer nivel;
 
+    @ColumnDefault("0")
     @Column(name = "puntuacion")
     private Integer puntuacion;
-
-    @OneToMany(mappedBy = "idJugador")
-    private Set<Estadistica> estadisticas = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "idJugador")
-    private Set<Partida> partidas = new LinkedHashSet<>();
-
-
     public Jugador(Integer id, String nombre, Integer nivel, Integer puntuacion) {
         this.id = id;
         this.nombre = nombre;
@@ -36,6 +31,9 @@ public class Jugador {
         this.puntuacion = puntuacion;
     }
 
+    public Jugador() {
+
+    }
     public Integer getId() {
         return id;
     }
@@ -68,22 +66,6 @@ public class Jugador {
         this.puntuacion = puntuacion;
     }
 
-    public Set<Estadistica> getEstadisticas() {
-        return estadisticas;
-    }
-
-    public void setEstadisticas(Set<Estadistica> estadisticas) {
-        this.estadisticas = estadisticas;
-    }
-
-    public Set<Partida> getPartidas() {
-        return partidas;
-    }
-
-    public void setPartidas(Set<Partida> partidas) {
-        this.partidas = partidas;
-    }
-
     @Override
     public String toString() {
         return "Jugador{" +
@@ -91,8 +73,6 @@ public class Jugador {
                 ", nombre='" + nombre + '\'' +
                 ", nivel=" + nivel +
                 ", puntuacion=" + puntuacion +
-                ", estadisticas=" + estadisticas +
-                ", partidas=" + partidas +
                 '}';
     }
 }

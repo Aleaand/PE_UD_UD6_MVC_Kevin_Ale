@@ -2,9 +2,9 @@ package app.vistas;
 
 import app.core.RouterCV;
 import app.modelos.Jugador;
+import app.modelos.Videojuego;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 public class VistaConsolaRouter implements Vista{
@@ -216,7 +216,7 @@ public class VistaConsolaRouter implements Vista{
     private void verVideojuegoID(Scanner scanner) {
         System.out.print("Ingrese ID del videojuego que desea ver: ");
         int id = scanner.nextInt();
-        System.out.println(router.ejecutarAccion("videojuegos", "verVideojuegoID", id));
+        System.out.println(router.ejecutarAccion("videojuegos", "getVideojuego", id));
     }
 
     private void listarVideojuegos() {
@@ -236,8 +236,9 @@ public class VistaConsolaRouter implements Vista{
         System.out.print("Ingrese fecha de la partida (formato yyyy-mm-dd): ");
         String fechaStr = scanner.nextLine();
         LocalDate fecha = LocalDate.parse(fechaStr);
-
-        System.out.println(router.ejecutarAccion("partidas", "agregarPartida", idJugador, idVideojuego, duracion, fecha));
+        Jugador jugador = (Jugador) router.ejecutarAccion("jugadores", "verJugadorID", idJugador);
+        Videojuego videojuego = (Videojuego) router.ejecutarAccion("videojuegos", "getVideojuego", idVideojuego);
+        System.out.println(router.ejecutarAccion("partidas", "agregarPartida", jugador, videojuego, duracion, fecha));
     }
 
     private void actualizarPartida(Scanner scanner) {
@@ -271,7 +272,7 @@ public class VistaConsolaRouter implements Vista{
     private void verPartidaID(Scanner scanner) {
         System.out.print("Ingrese ID de la partida que desea ver: ");
         int id = scanner.nextInt();
-        System.out.println(router.ejecutarAccion("partidas", "verPartidaID", id));
+        System.out.println(router.ejecutarAccion("partidas", "getPartida", id));
     }
 
     private void listarPartidas() {

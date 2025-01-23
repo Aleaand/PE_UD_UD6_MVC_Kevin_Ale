@@ -1,6 +1,7 @@
 package app.modelos;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -24,11 +25,7 @@ public class Videojuego {
     private BigDecimal precio;
 
     @OneToMany(mappedBy = "idVideojuego")
-    private Set<Estadistica> estadisticas = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "idVideojuego")
     private Set<Partida> partidas = new LinkedHashSet<>();
-
     public Videojuego(int videojuegoId, String videojuegoNombre, String s, double i) {
         id = videojuegoId;
         titulo = videojuegoNombre;
@@ -39,7 +36,6 @@ public class Videojuego {
     public Videojuego() {
 
     }
-
     public Integer getId() {
         return id;
     }
@@ -72,14 +68,6 @@ public class Videojuego {
         this.precio = precio;
     }
 
-    public Set<Estadistica> getEstadisticas() {
-        return estadisticas;
-    }
-
-    public void setEstadisticas(Set<Estadistica> estadisticas) {
-        this.estadisticas = estadisticas;
-    }
-
     public Set<Partida> getPartidas() {
         return partidas;
     }
@@ -95,7 +83,6 @@ public class Videojuego {
                 ", titulo='" + titulo + '\'' +
                 ", genero='" + genero + '\'' +
                 ", precio=" + precio +
-                ", estadisticas=" + estadisticas +
                 ", partidas=" + partidas +
                 '}';
     }
