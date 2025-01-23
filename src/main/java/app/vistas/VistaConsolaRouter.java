@@ -180,6 +180,8 @@ public class VistaConsolaRouter implements Vista{
     private void listarJugadores() {
         System.out.println(router.ejecutarAccion("jugadores", "listarJugadores"));
     }
+
+
     private void agregarVideojuego(Scanner scanner) {
         System.out.print("Ingrese título del videojuego: ");
         String titulo = scanner.nextLine();
@@ -190,7 +192,6 @@ public class VistaConsolaRouter implements Vista{
 
         System.out.println(router.ejecutarAccion("videojuegos", "agregarVideojuego", titulo, genero, precio));
     }
-
     private void actualizarVideojuego(Scanner scanner) {
         String titulo = "";
         String genero = "";
