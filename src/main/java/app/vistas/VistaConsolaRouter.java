@@ -25,7 +25,8 @@ public class VistaConsolaRouter implements Vista{
             System.out.println("2. Videojuego");
             System.out.println("3. Partida");
             System.out.println("4. Estadistica");
-            System.out.println("5. Salir del sistema");
+            System.out.println("5. Configuarción");
+            System.out.println("6. Salir del sistema");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine();
@@ -35,11 +36,13 @@ public class VistaConsolaRouter implements Vista{
                 case 2 -> menuVideojuego(scanner);
                 case 3 -> menuPartida(scanner);
                 case 4 -> menuEstadistica(scanner);
-                case 5 -> System.out.println("Saliendo del sistema...");
+                case 5 -> congiguracion(scanner);
+                case 6 -> System.out.println("Saliendo del sistema...");
                 default -> System.out.println("Opción no válida. Intente nuevamente.");
             }
         } while (opcion != 5);
     }
+
 
     private void menuJugador(Scanner scanner) {
         int opcion;
@@ -287,6 +290,17 @@ public class VistaConsolaRouter implements Vista{
     }
     private void verEstadisticasExperiencia() {
         System.out.println(router.ejecutarAccion("jugadores", "verEstadisticasExperiencia"));
+    }
+
+    private void congiguracion(Scanner scanner) {
+        System.out.println("Ingrese el idioma (Español, Inglés):");
+        String idioma = scanner.nextLine();
+        System.out.println("Seleccione el tema (claro, oscuro):");
+        String tema = scanner.nextLine();
+        System.out.println("¿Desea activar las notificaciones? (true/false):");
+        boolean notificaciones = Boolean.parseBoolean(scanner.nextLine());
+        //System.out.println(guardarConfiguracionEnJSON(configuracion););
+        System.out.println(idioma+" "+tema+" "+notificaciones);
     }
 }
 
