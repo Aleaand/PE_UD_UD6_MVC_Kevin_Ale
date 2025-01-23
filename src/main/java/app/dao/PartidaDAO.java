@@ -147,7 +147,7 @@ public class PartidaDAO implements DAO<Partida> {
         List<Partida> partidas = new ArrayList<>();
         String sql = "SELECT p.id, p.horas_jugadas, p.puntos_obtenidos, p.fecha_partida, " +
                 "j.id AS jugador_id, j.nombre AS jugador_nombre, j.puntuacion, j.nivel, " +
-                "v.id AS videojuego_id, v.nombre AS videojuego_nombre, v.genero, v.precio " +
+                "v.id AS videojuego_id, v.titulo AS videojuego_nombre, v.genero, v.precio " +
                 "FROM Partidas p " +
                 "JOIN Jugadores j ON p.id_jugador = j.id " +
                 "JOIN Videojuegos v ON p.id_videojuego = v.id " +
@@ -156,14 +156,21 @@ public class PartidaDAO implements DAO<Partida> {
         try (Connection conn = DatabaseConfig.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
+
             while (rs.next()) {
+                // Crear el objeto Jugador
                 Jugador jugador = new Jugador(rs.getInt("jugador_id"), rs.getString("jugador_nombre"),
-                        Integer.parseInt(rs.getString("nivel")), Integer.parseInt(rs.getString("puntuacion")));
+                        rs.getInt("nivel"), rs.getInt("puntuacion"));
+
+                // Crear el objeto Videojuego
                 Videojuego videoJuego = new Videojuego(rs.getInt("videojuego_id"), rs.getString("videojuego_nombre"),
                         rs.getString("genero"), rs.getDouble("precio"));
+
+                // Crear la partida
                 Partida partida = new Partida(rs.getInt("id"), jugador, videoJuego, rs.getInt("horas_jugadas"),
                         rs.getInt("puntos_obtenidos"), rs.getDate("fecha_partida").toLocalDate());
 
+                // Añadir la partida a la lista
                 partidas.add(partida);
             }
         } catch (SQLException e) {

@@ -37,4 +37,8 @@ public class PartidaControlador {
     public void actualizarPartida(Partida partida) {
         partidaDAO.actualizar(partida);
     }
+    // verEstadisticasHoras
+    public List<Partida> verEstadisticasHoras() {
+        return partidaDAO.verEstadisticasHoras();
+    }
 }
