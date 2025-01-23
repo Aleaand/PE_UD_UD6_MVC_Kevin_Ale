@@ -105,5 +105,44 @@ public class JugadorDAO implements DAO<Jugador> {
             return "hubo un error al actualizar el jugador";
         }
     }
-    
+    //verEstadisticasPuntuacion TOP10 mejores puntuaciones
+    public List<Jugador> verEstadisticasPuntuacion() {
+        List<Jugador> jugadores = new ArrayList<>();
+        String sql = "SELECT * FROM jugadores ORDER BY puntuacion DESC LIMIT 10"; // consulta para obtener top 10 puntuaciones
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                jugadores.add(new Jugador(rs.getInt("id"), rs.getString("nombre"),
+                        rs.getInt("nivel"), rs.getInt("puntuacion")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return jugadores;
+    }
+    //verEstadisticasExperiencia TOP10 mejores experiencias
+    public List<Jugador> verEstadisticasExperiencia() {
+        List<Jugador> jugadores = new ArrayList<>();
+        String sql = "SELECT * FROM jugadores ORDER BY nivel DESC LIMIT 10"; // consulta para obtener top 10 experiencia
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                jugadores.add(new Jugador(rs.getInt("id"), rs.getString("nombre"),
+                        rs.getInt("nivel"), rs.getInt("puntuacion")));
+                // Suponiendo que tienes un campo `experiencia` en la tabla de jugadores,
+                // si no, tendrías que ajustarlo a cómo está en tu modelo.
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return jugadores;
+    }
 }

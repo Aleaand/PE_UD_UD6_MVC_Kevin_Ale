@@ -31,10 +31,10 @@ public class JugadorControlador {
 
         return jugadorDAO.listarTodos();
     }
-    public List<String> verEstadisticasPuntuacion() {
-        return null;
+    public List<Jugador> verEstadisticasPuntuacion() {
+        return jugadorDAO.verEstadisticasPuntuacion();
     }
-    public List<String> verEstadisticasExperiencia() {
-        return null;
+    public List<Jugador> verEstadisticasExperiencia() {
+        return jugadorDAO.verEstadisticasExperiencia();
     }
 }
