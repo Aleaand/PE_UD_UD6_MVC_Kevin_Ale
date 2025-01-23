@@ -38,8 +38,12 @@ public class Partida {
         this.fechaPartida = fechaPartida;
     }
 
-    public Partida(Jugador jugador, Videojuego videojuego, int horasJugadas, int puntosObtenidos, String fechaPartida) {
-
+    public Partida(Jugador jugador, Videojuego videojuego, int horasJugadas, int puntosObtenidos, LocalDate fechaPartida) {
+        this.idVideojuego = videojuego;
+        this.idJugador = jugador;
+        this.horasJugadas = horasJugadas;
+        this.puntosObtenidos = puntosObtenidos;
+        this.fechaPartida = fechaPartida;
     }
 
     public Integer getId() {

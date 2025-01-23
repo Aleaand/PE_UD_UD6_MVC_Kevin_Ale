@@ -244,6 +244,7 @@ public class VistaConsolaRouter implements Vista{
         int idJugador = 0;
         int idVideojuego = 0;
         int duracion = 0;
+        int puntuacion = 0;
         LocalDate fecha = null;
         System.out.println("ID de la partida: :");
         int id = scanner.nextInt();
@@ -251,12 +252,14 @@ public class VistaConsolaRouter implements Vista{
         idJugador = scanner.nextInt();
         System.out.print("Ingrese el nuevo ID del videojuego: ");
         idVideojuego = scanner.nextInt();
-        System.out.print("Ingrese la nueva duración de la partida (en minutos): ");
+        System.out.print("Ingrese la nueva duración de la partida (int): ");
         duracion = scanner.nextInt();
+        System.out.print("Ingrese la puntuacion: ");
+        puntuacion = scanner.nextInt();
         System.out.print("Ingrese la nueva fecha de la partida (formato yyyy-mm-dd): ");
         String fechaStr = scanner.nextLine();
         fecha = LocalDate.parse(fechaStr);
-        System.out.println(router.ejecutarAccion("partidas", "actualizarPartida", id,idJugador, idVideojuego, duracion, fecha));
+        System.out.println(router.ejecutarAccion("partidas", "actualizarPartida", id,idJugador, idVideojuego, duracion, fecha,puntuacion));
     }
 
     private void eliminarPartida(Scanner scanner) {

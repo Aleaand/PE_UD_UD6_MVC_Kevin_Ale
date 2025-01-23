@@ -105,4 +105,5 @@ public class JugadorDAO implements DAO<Jugador> {
             return "hubo un error al actualizar el jugador";
         }
     }
+    
 }
