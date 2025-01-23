@@ -2,6 +2,7 @@ package app.vistas;
 
 import app.core.RouterCV;
 import app.modelos.Jugador;
+import app.modelos.Partida;
 import app.modelos.Videojuego;
 
 import java.time.LocalDate;
@@ -162,11 +163,14 @@ public class VistaConsolaRouter implements Vista{
 
         System.out.println("ID del jugador: :");
         int id = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Ingrese el nuevo nombre del jugador: ");
         nombre = scanner.nextLine();
+
         System.out.print("Ingrese el nuevo nivel del jugador: ");
         nivel = scanner.nextInt();
         System.out.print("Ingrese la nueva puntuación del jugador: ");
+        puntuacion = scanner.nextInt();
         System.out.println(router.ejecutarAccion("jugadores", "actualizarJugador", id,nombre, nivel, puntuacion));
     }
     private void eliminarJugador(Scanner scanner) {
@@ -238,10 +242,12 @@ public class VistaConsolaRouter implements Vista{
         scanner.nextLine();  // Limpiar el buffer de la línea pendiente
         System.out.print("Ingrese fecha de la partida (formato yyyy-mm-dd): ");
         String fechaStr = scanner.nextLine();
+        System.out.println("Ingrese el numero de puntos conseguidos");
+        int puntos = scanner.nextInt();
         LocalDate fecha = LocalDate.parse(fechaStr);
         Jugador jugador = (Jugador) router.ejecutarAccion("jugadores", "verJugadorID", idJugador);
         Videojuego videojuego = (Videojuego) router.ejecutarAccion("videojuegos", "getVideojuego", idVideojuego);
-        System.out.println(router.ejecutarAccion("partidas", "agregarPartida", jugador, videojuego, duracion, fecha));
+        System.out.println(router.ejecutarAccion("partidas", "agregarPartida", jugador, videojuego,puntos, duracion, fecha));
     }
 
     private void actualizarPartida(Scanner scanner) {
@@ -258,12 +264,17 @@ public class VistaConsolaRouter implements Vista{
         idVideojuego = scanner.nextInt();
         System.out.print("Ingrese la nueva duración de la partida (int): ");
         duracion = scanner.nextInt();
-        System.out.print("Ingrese la puntuacion: ");
-        puntuacion = scanner.nextInt();
+        scanner.nextLine();  // Limpiar el buffer de la línea pendiente
         System.out.print("Ingrese la nueva fecha de la partida (formato yyyy-mm-dd): ");
         String fechaStr = scanner.nextLine();
+        System.out.print("Ingrese la puntuacion: ");
+        puntuacion = scanner.nextInt();
+
         fecha = LocalDate.parse(fechaStr);
-        System.out.println(router.ejecutarAccion("partidas", "actualizarPartida", id,idJugador, idVideojuego, duracion, fecha,puntuacion));
+        Jugador jugador = (Jugador) router.ejecutarAccion("jugadores", "verJugadorID", idJugador);
+        Videojuego videojuego = (Videojuego) router.ejecutarAccion("videojuegos", "getVideojuego", idVideojuego);
+        Partida partida = new Partida(id,jugador, videojuego, duracion, puntuacion,fecha);
+        System.out.println(router.ejecutarAccion("partidas", "actualizarPartida", partida));
     }
 
     private void eliminarPartida(Scanner scanner) {

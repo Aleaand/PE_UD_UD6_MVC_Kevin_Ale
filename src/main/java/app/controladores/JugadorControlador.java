@@ -24,8 +24,8 @@ public class JugadorControlador {
     public String eliminarJugador (int id){
         return jugadorDAO.eliminar(id);
     }
-    public String verJugadorID (int id){
-        return jugadorDAO.buscarPorId(id).toString();
+    public Jugador verJugadorID (int id){
+        return jugadorDAO.buscarPorId(id);
     }
     public List<Jugador> listarJugadores() {
 

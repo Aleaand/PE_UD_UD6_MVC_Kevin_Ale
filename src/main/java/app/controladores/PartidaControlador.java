@@ -34,8 +34,8 @@ public class PartidaControlador {
     }
 
     // Método para actualizar una partida
-    public void actualizarPartida(Partida partida) {
-        partidaDAO.actualizar(partida);
+    public String actualizarPartida(Partida partida) {
+        return partidaDAO.actualizar(partida);
     }
     // verEstadisticasHoras
     public List<Partida> verEstadisticasHoras() {

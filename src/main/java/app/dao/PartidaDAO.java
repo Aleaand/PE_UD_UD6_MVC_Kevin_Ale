@@ -40,11 +40,12 @@ public class PartidaDAO implements DAO<Partida> {
     @Override
     public Partida buscarPorId(int id) {
         String sql = "SELECT p.id, p.horas_jugadas, p.puntos_obtenidos, p.fecha_partida, " +
-                "j.id AS jugador_id, j.nombre AS jugador_nombre,j.puntuacion, j.nivel" +
-                "v.id AS videojuego_id, v.nombre AS videojuego_nombre, v.genero,v.precio" +
+                "       j.id AS jugador_id, j.nombre AS jugador_nombre, j.puntuacion, j.nivel, " +
+                "       v.id AS videojuego_id, v.titulo AS videojuego_nombre, v.genero, v.precio " +
                 "FROM Partidas p " +
                 "JOIN Jugadores j ON p.id_jugador = j.id " +
-                "JOIN Videojuegos v ON p.id_videojuego = v.id";
+                "JOIN Videojuegos v ON p.id_videojuego = v.id " +
+                "WHERE p.id = ?";
 
 
         try (Connection conn = DatabaseConfig.getConnection();
