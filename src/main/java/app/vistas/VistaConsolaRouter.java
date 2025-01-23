@@ -159,38 +159,11 @@ public class VistaConsolaRouter implements Vista{
 
         System.out.println("ID del jugador: :");
         int id = scanner.nextInt();
-
-        System.out.println("Desea modificar el nombre del jugador? (s/n):");
-        scanner.nextLine();
-        respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese el nuevo nombre del jugador: ");
-            nombre = scanner.nextLine();
-        } else {
-            System.out.println("El nombre no se modificará.");
-        }
-
-        System.out.println("Desea modificar el nivel del jugador? (s/n):");
-        respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese el nuevo nivel del jugador: ");
-            nivel = scanner.nextInt();
-        } else {
-            System.out.println("El nivel no se modificará.");
-        }
-
-        System.out.println("Desea modificar la puntuación del jugador? (s/n):");
-        respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese la nueva puntuación del jugador: ");
-            puntuacion = scanner.nextInt();
-        } else {
-            System.out.println("La puntuación no se modificará.");
-        }
-
+        System.out.print("Ingrese el nuevo nombre del jugador: ");
+        nombre = scanner.nextLine();
+        System.out.print("Ingrese el nuevo nivel del jugador: ");
+        nivel = scanner.nextInt();
+        System.out.print("Ingrese la nueva puntuación del jugador: ");
         System.out.println(router.ejecutarAccion("jugadores", "actualizarJugador", id,nombre, nivel, puntuacion));
     }
     private void eliminarJugador(Scanner scanner) {
@@ -224,37 +197,12 @@ public class VistaConsolaRouter implements Vista{
         double precio = 0.0;
         System.out.println("ID del videojuego: :");
         int id = scanner.nextInt();
-
-        System.out.println("Desea modificar el título del videojuego? (s/n):");
-        String respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese el nuevo título del videojuego: ");
-            titulo = scanner.nextLine();
-        } else {
-            System.out.println("El título no se modificará.");
-        }
-
-        System.out.println("Desea modificar el género del videojuego? (s/n):");
-        respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese el nuevo género del videojuego: ");
-            genero = scanner.nextLine();
-        } else {
-            System.out.println("El género no se modificará.");
-        }
-
-        System.out.println("Desea modificar el precio del videojuego? (s/n):");
-        respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese el nuevo precio del videojuego: ");
-            precio = scanner.nextDouble();
-        } else {
-            System.out.println("El precio no se modificará.");
-        }
-
+        System.out.print("Ingrese el nuevo título del videojuego: ");
+        titulo = scanner.nextLine();
+        System.out.print("Ingrese el nuevo género del videojuego: ");
+        genero = scanner.nextLine();
+        System.out.print("Ingrese el nuevo precio del videojuego: ");
+        precio = scanner.nextDouble();
         System.out.println(router.ejecutarAccion("videojuegos", "actualizarVideojuego", id,titulo, genero, precio));
     }
 
@@ -298,51 +246,15 @@ public class VistaConsolaRouter implements Vista{
         LocalDate fecha = null;
         System.out.println("ID de la partida: :");
         int id = scanner.nextInt();
-
-        System.out.println("Desea modificar el ID del jugador? (s/n):");
-        String respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese el nuevo ID del jugador: ");
-            idJugador = scanner.nextInt();
-            scanner.nextLine();  // Limpiar el buffer
-        } else {
-            System.out.println("El ID del jugador no se modificará.");
-        }
-
-        System.out.println("Desea modificar el ID del videojuego? (s/n):");
-        respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese el nuevo ID del videojuego: ");
-            idVideojuego = scanner.nextInt();
-            scanner.nextLine();  // Limpiar el buffer
-        } else {
-            System.out.println("El ID del videojuego no se modificará.");
-        }
-
-        System.out.println("Desea modificar la duración de la partida? (s/n):");
-        respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese la nueva duración de la partida (en minutos): ");
-            duracion = scanner.nextInt();
-            scanner.nextLine();  // Limpiar el buffer
-        } else {
-            System.out.println("La duración no se modificará.");
-        }
-
-        System.out.println("Desea modificar la fecha de la partida? (s/n):");
-        respuesta = scanner.nextLine();
-
-        if (respuesta.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese la nueva fecha de la partida (formato yyyy-mm-dd): ");
-            String fechaStr = scanner.nextLine();
-            fecha = LocalDate.parse(fechaStr);
-        } else {
-            System.out.println("La fecha no se modificará.");
-        }
-
+        System.out.print("Ingrese el nuevo ID del jugador: ");
+        idJugador = scanner.nextInt();
+        System.out.print("Ingrese el nuevo ID del videojuego: ");
+        idVideojuego = scanner.nextInt();
+        System.out.print("Ingrese la nueva duración de la partida (en minutos): ");
+        duracion = scanner.nextInt();
+        System.out.print("Ingrese la nueva fecha de la partida (formato yyyy-mm-dd): ");
+        String fechaStr = scanner.nextLine();
+        fecha = LocalDate.parse(fechaStr);
         System.out.println(router.ejecutarAccion("partidas", "actualizarPartida", id,idJugador, idVideojuego, duracion, fecha));
     }
 
