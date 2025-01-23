@@ -304,14 +304,13 @@ public class VistaConsolaRouter implements Vista{
     }
 
     private void congiguracion(Scanner scanner) {
-        System.out.println("Ingrese el idioma (Español, Inglés):");
-        String idioma = scanner.nextLine();
-        System.out.println("Seleccione el tema (claro, oscuro):");
-        String tema = scanner.nextLine();
-        System.out.println("¿Desea activar las notificaciones? (true/false):");
-        boolean notificaciones = Boolean.parseBoolean(scanner.nextLine());
+        System.out.println("Ingrese la url de la congiguracion con la base de datos:");
+        String URL = scanner.nextLine();
+        System.out.println("Ingrese el usuario de la congiguracion con la base de datos:");
+        String USER = scanner.nextLine();
+        System.out.println("Ingrese la contraseña de la congiguracion con la base de datos:");
+        String PASS = scanner.nextLine();
         //System.out.println(guardarConfiguracionEnJSON(configuracion););
-        System.out.println(idioma+" "+tema+" "+notificaciones);
     }
 }
 
