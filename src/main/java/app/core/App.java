@@ -19,6 +19,7 @@ public class App extends Application {
         // Registrar controladores
         router.registrarControlador("jugadores", new JugadorControlador());
         router.registrarControlador("videojuegos", new VideoJuegoControlador());
+      router.registrarControlador("partidas", new VideoJuegoControlador());
 
         // Registrar vistas
         router.registrarVista("vistaJavaFX", new VistaJavaFX(router));

@@ -45,7 +45,7 @@ public class PartidaControlador {
     public List<Partida> listarPartidas() {
         return partidaDAO.listarTodos();
     }
-    public List<String> verEstadisticasHoras(){
-        return null;
+    public List<Partida> verEstadisticasHoras(){
+        return partidaDAO.verEstadisticasHoras();
     }
 }
