@@ -84,4 +84,15 @@ public class Jugador {
         this.partidas = partidas;
     }
 
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", nivel=" + nivel +
+                ", puntuacion=" + puntuacion +
+                ", estadisticas=" + estadisticas +
+                ", partidas=" + partidas +
+                '}';
+    }
 }

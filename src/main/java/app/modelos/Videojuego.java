@@ -88,4 +88,15 @@ public class Videojuego {
         this.partidas = partidas;
     }
 
+    @Override
+    public String toString() {
+        return "Videojuego{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", genero='" + genero + '\'' +
+                ", precio=" + precio +
+                ", estadisticas=" + estadisticas +
+                ", partidas=" + partidas +
+                '}';
+    }
 }

@@ -44,4 +44,11 @@ public class EstadisticaId implements Serializable {
         return Objects.hash(idJugador, idVideojuego);
     }
 
+    @Override
+    public String toString() {
+        return "EstadisticaId{" +
+                "idJugador=" + idJugador +
+                ", idVideojuego=" + idVideojuego +
+                '}';
+    }
 }

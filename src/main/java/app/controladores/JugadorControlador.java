@@ -10,24 +10,25 @@ public class JugadorControlador {
     private List<Jugador> jugadores = new ArrayList<>();
     private JugadorDAO jugadorDAO = new JugadorDAO();
 
-    public void agregarJugador(String nombre, int nivel, int puntuacion) {
+    public String agregarJugador(String nombre, int nivel, int puntuacion) {
         int id = jugadores.size() + 1;
         Jugador jugador = new Jugador(id, nombre, nivel, puntuacion);
-
-       jugadorDAO.guardar(jugador);
+        jugadorDAO.guardar(jugador);
+        return jugador.toString();
     }
-
-    public List<Jugador> listarJugadores() {
-        return jugadorDAO.listarTodos();
+    public String actualizarJugador (int id,String nombre, int nivel, int puntuacion) {
+        Jugador jugador = new Jugador(id, nombre, nivel, puntuacion);
+        jugadorDAO.actualizar(jugador);
+        return jugador.toString();
     }
-    public Jugador getJugador(int id) {
-        return jugadorDAO.buscarPorId(id);
-    }
-    public String eliminarJugador(int id) {
+    public String eliminarJugador (int id){
         return jugadorDAO.eliminar(id);
     }
-    public String actualizarJugador(Jugador jugador  ) {
-        return jugadorDAO.actualizar(jugador);
+    public String verJugadorID (int id){
+        return jugadorDAO.buscarPorId(id).toString();
     }
+    public List<Jugador> listarJugadores() {
 
+        return jugadorDAO.listarTodos();
+    }
 }

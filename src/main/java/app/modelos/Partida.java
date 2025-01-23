@@ -90,4 +90,15 @@ public class Partida {
         this.puntosObtenidos = puntosObtenidos;
     }
 
+    @Override
+    public String toString() {
+        return "Partida{" +
+                "id=" + id +
+                ", idVideojuego=" + idVideojuego +
+                ", idJugador=" + idJugador +
+                ", fechaPartida=" + fechaPartida +
+                ", horasJugadas=" + horasJugadas +
+                ", puntosObtenidos=" + puntosObtenidos +
+                '}';
+    }
 }

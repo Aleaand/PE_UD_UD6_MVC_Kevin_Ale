@@ -65,4 +65,14 @@ public class Estadistica {
         this.puntosTotales = puntosTotales;
     }
 
+    @Override
+    public String toString() {
+        return "Estadistica{" +
+                "id=" + id +
+                ", idJugador=" + idJugador +
+                ", idVideojuego=" + idVideojuego +
+                ", horasJugadas=" + horasJugadas +
+                ", puntosTotales=" + puntosTotales +
+                '}';
+    }
 }

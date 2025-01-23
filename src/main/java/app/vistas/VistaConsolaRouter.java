@@ -153,12 +153,16 @@ public class VistaConsolaRouter implements Vista{
     }
 
     private void actualizaJugador(Scanner scanner) {
-        String nombre = "";
+        String nombre = "", respuesta = "";
         int nivel = 0;
         int puntuacion = 0;
 
+        System.out.println("ID del jugador: :");
+        int id = scanner.nextInt();
+
         System.out.println("Desea modificar el nombre del jugador? (s/n):");
-        String respuesta = scanner.nextLine();
+        scanner.nextLine();
+        respuesta = scanner.nextLine();
 
         if (respuesta.equalsIgnoreCase("s")) {
             System.out.print("Ingrese el nuevo nombre del jugador: ");
@@ -178,7 +182,6 @@ public class VistaConsolaRouter implements Vista{
         }
 
         System.out.println("Desea modificar la puntuación del jugador? (s/n):");
-        scanner.nextLine();
         respuesta = scanner.nextLine();
 
         if (respuesta.equalsIgnoreCase("s")) {
@@ -188,7 +191,7 @@ public class VistaConsolaRouter implements Vista{
             System.out.println("La puntuación no se modificará.");
         }
 
-        System.out.println(router.ejecutarAccion("jugadores", "actualizarJugador", nombre, nivel, puntuacion));
+        System.out.println(router.ejecutarAccion("jugadores", "actualizarJugador", id,nombre, nivel, puntuacion));
     }
     private void eliminarJugador(Scanner scanner) {
         System.out.print("Ingrese ID del jugador que desea eliminar: ");
@@ -219,6 +222,8 @@ public class VistaConsolaRouter implements Vista{
         String titulo = "";
         String genero = "";
         double precio = 0.0;
+        System.out.println("ID del videojuego: :");
+        int id = scanner.nextInt();
 
         System.out.println("Desea modificar el título del videojuego? (s/n):");
         String respuesta = scanner.nextLine();
@@ -250,7 +255,7 @@ public class VistaConsolaRouter implements Vista{
             System.out.println("El precio no se modificará.");
         }
 
-        System.out.println(router.ejecutarAccion("videojuegos", "actualizarVideojuego", titulo, genero, precio));
+        System.out.println(router.ejecutarAccion("videojuegos", "actualizarVideojuego", id,titulo, genero, precio));
     }
 
     private void eliminarVideojuego(Scanner scanner) {
@@ -291,6 +296,8 @@ public class VistaConsolaRouter implements Vista{
         int idVideojuego = 0;
         int duracion = 0;
         LocalDate fecha = null;
+        System.out.println("ID de la partida: :");
+        int id = scanner.nextInt();
 
         System.out.println("Desea modificar el ID del jugador? (s/n):");
         String respuesta = scanner.nextLine();
@@ -336,7 +343,7 @@ public class VistaConsolaRouter implements Vista{
             System.out.println("La fecha no se modificará.");
         }
 
-        System.out.println(router.ejecutarAccion("partidas", "actualizarPartida", idJugador, idVideojuego, duracion, fecha));
+        System.out.println(router.ejecutarAccion("partidas", "actualizarPartida", id,idJugador, idVideojuego, duracion, fecha));
     }
 
     private void eliminarPartida(Scanner scanner) {
