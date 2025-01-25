@@ -7,6 +7,7 @@ import app.modelos.Jugador;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class PartidaControlador {
 
@@ -14,7 +15,7 @@ public class PartidaControlador {
 
     // Método para agregar una nueva partida
     public String agregarPartida(Jugador jugador, Videojuego videojuego, int horasJugadas, int puntosObtenidos, LocalDate fechaPartida) {
-        Partida partida = new Partida(jugador, videojuego, horasJugadas, puntosObtenidos, fechaPartida);
+        Partida partida = new Partida(jugador, videojuego,puntosObtenidos, horasJugadas,  fechaPartida);
        return partidaDAO.guardar(partida);
     }
 
@@ -40,5 +41,9 @@ public class PartidaControlador {
     // verEstadisticasHoras
     public List<Partida> verEstadisticasHoras() {
         return partidaDAO.verEstadisticasHoras();
+    }
+
+    public List<Map<String, Object>> obtenerClasificacionVideojuegos() {
+        return partidaDAO.obtenerClasificacionVideojuegos();
     }
 }

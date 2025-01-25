@@ -5,8 +5,10 @@ import app.modelos.Partida;
 import app.modelos.Videojuego;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 public class PartidaDAO implements DAO<Partida> {
 
@@ -70,6 +72,36 @@ public class PartidaDAO implements DAO<Partida> {
             e.printStackTrace();
         }
         return null;
+    }
+    public List<Map<String, Object>> obtenerClasificacionVideojuegos() {
+        List<Map<String, Object>> clasificacion = new ArrayList<>();
+
+        String query = """
+        SELECT v.titulo AS nombre_videojuego, 
+               SUM(p.horas_jugadas) AS total_horas,
+               COUNT(DISTINCT p.id_jugador) AS total_jugadores
+        FROM partidas p
+        JOIN videojuegos v ON p.id_videojuego = v.id
+        GROUP BY v.id, v.titulo
+        ORDER BY total_horas DESC, total_jugadores DESC;
+    """;
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Map<String, Object> videojuegoStats = new HashMap<>();
+                videojuegoStats.put("nombre_videojuego", rs.getString("nombre_videojuego"));
+                videojuegoStats.put("total_horas", rs.getInt("total_horas"));
+                videojuegoStats.put("total_jugadores", rs.getInt("total_jugadores"));
+                clasificacion.add(videojuegoStats);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clasificacion;
     }
 
     @Override
