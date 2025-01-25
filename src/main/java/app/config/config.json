@@ -1,0 +1,5 @@
+{
+  "url": "jdbc:postgresql://ep-cool-cherry-a88a60cq.eastus2.azure.neon.tech/neondb?user=neondb_owner&password=npg_oySvTleZ05bD&sslmode=require",
+  "user": "neondb_owner",
+  "password": "npg_oySvTleZ05bD"
+}

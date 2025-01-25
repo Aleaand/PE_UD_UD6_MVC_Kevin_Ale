@@ -17,6 +17,13 @@
     </properties>
 
     <dependencies>
+        <!-- JSON-java (org.json) -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230618</version> <!-- Cambia por la versión más reciente si es necesario -->
+        </dependency>
+
 
         <dependency>
             <groupId>org.openjfx</groupId>
