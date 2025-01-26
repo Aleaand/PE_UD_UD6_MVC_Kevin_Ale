@@ -148,7 +148,7 @@ public class PartidaDAO implements DAO<Partida> {
             stmt.executeUpdate();
             return "Partida eliminada";
         } catch (SQLException e) {
-            return "Partida no eliminada";
+            return "Error partida no eliminada";
         }
     }
     public String actualizar(Partida partida) {
@@ -169,10 +169,10 @@ public class PartidaDAO implements DAO<Partida> {
             if (filasActualizadas > 0) {
                 return ("Partida actualizada con éxito: " + partida);
             } else {
-                return("No se encontró la partida con ID: " + partida.getId());
+                return("Error no se encontró la partida con ID: " + partida.getId());
             }
         } catch (SQLException e) {
-            return "Hubo un error al actualizar la partida con ID: " + partida.getId();
+            return "Error al actualizar la partida con ID: " + partida.getId();
         }
     }
     //verEstadisticasHoras ver las 10 partidas mas largas

@@ -16,24 +16,30 @@ public class JugadorControlador {
 
         return jugadorDAO.guardar(jugador);
     }
-    public String actualizarJugador (int id,String nombre, int nivel, int puntuacion) {
+
+    public String actualizarJugador(int id, String nombre, int nivel, int puntuacion) {
         Jugador jugador = new Jugador(id, nombre, nivel, puntuacion);
 
         return jugadorDAO.actualizar(jugador);
     }
-    public String eliminarJugador (int id){
+
+    public String eliminarJugador(int id) {
         return jugadorDAO.eliminar(id);
     }
-    public Jugador verJugadorID (int id){
+
+    public Jugador verJugadorID(int id) {
         return jugadorDAO.buscarPorId(id);
     }
+
     public List<Jugador> listarJugadores() {
 
         return jugadorDAO.listarTodos();
     }
+
     public List<Jugador> verEstadisticasPuntuacion() {
         return jugadorDAO.verEstadisticasPuntuacion();
     }
+
     public List<Jugador> verEstadisticasExperiencia() {
         return jugadorDAO.verEstadisticasExperiencia();
     }

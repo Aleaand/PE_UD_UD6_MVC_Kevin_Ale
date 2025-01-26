@@ -15,8 +15,8 @@ public class PartidaControlador {
 
     // Método para agregar una nueva partida
     public String agregarPartida(Jugador jugador, Videojuego videojuego, int horasJugadas, int puntosObtenidos, LocalDate fechaPartida) {
-        Partida partida = new Partida(jugador, videojuego,puntosObtenidos, horasJugadas,  fechaPartida);
-       return partidaDAO.guardar(partida);
+        Partida partida = new Partida(jugador, videojuego, puntosObtenidos, horasJugadas, fechaPartida);
+        return partidaDAO.guardar(partida);
     }
 
     // Método para listar todas las partidas
@@ -38,6 +38,7 @@ public class PartidaControlador {
     public String actualizarPartida(Partida partida) {
         return partidaDAO.actualizar(partida);
     }
+
     // verEstadisticasHoras
     public List<Partida> verEstadisticasHoras() {
         return partidaDAO.verEstadisticasHoras();

@@ -81,7 +81,7 @@ public class JugadorDAO implements DAO<Jugador> {
             stmt.executeUpdate();
             return "Jugador eliminado";
         } catch (SQLException e) {
-            return "jugador no eliminado";
+            return "Error jugador no eliminado";
         }
     }
     // Método para actualizar los detalles de un jugador en la base de datos
@@ -100,10 +100,10 @@ public class JugadorDAO implements DAO<Jugador> {
             if (filasActualizadas > 0) {
                 return "Jugador actualizado con éxito: " + jugador;
             } else {
-                return "No se encontró el jugador con ID: " + jugador.getId();
+                return "Error No se encontró el jugador con ID: " + jugador.getId();
             }
         } catch (SQLException e) {
-            return "hubo un error al actualizar el jugador";
+            return "Error al actualizar el jugador";
         }
     }
     //verEstadisticasPuntuacion TOP10 mejores puntuaciones
@@ -143,7 +143,6 @@ public class JugadorDAO implements DAO<Jugador> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return jugadores;
     }
 }

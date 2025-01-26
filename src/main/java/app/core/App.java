@@ -27,9 +27,9 @@ public class App extends Application {
         router.registrarVista("vistaConsola", new VistaConsolaRouter(router));
 
         // Inicializar la vista deseada
-        //router.inicializarVista("vistaJavaFX");
+        router.inicializarVista("vistaJavaFX");
         // Alternativamente, puedes inicializar la vista de consola:
-        router.inicializarVista("vistaConsola");
+      //router.inicializarVista("vistaConsola");
     }
 
     public static void main(String[] args) {

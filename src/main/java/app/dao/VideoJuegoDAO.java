@@ -26,7 +26,7 @@ public class VideoJuegoDAO implements DAO<Videojuego> {
             }
             return "Videojuego guardado";
         } catch (SQLException e) {
-            return "Videojuego no guardado";
+            return "Error Videojuego no guardado";
         }
     }
 
@@ -81,7 +81,7 @@ public class VideoJuegoDAO implements DAO<Videojuego> {
             stmt.executeUpdate();
             return "Videojuego eliminado";
         } catch (SQLException e) {
-            return "Videojuego no eliminado";
+            return "Error Videojuego no eliminado";
         }
     }
     // Método para actualizar los detalles de un videojuego
@@ -100,10 +100,10 @@ public class VideoJuegoDAO implements DAO<Videojuego> {
             if (filasActualizadas > 0) {
                 return("Videojuego actualizado con éxito: " + videojuego);
             } else {
-                return ("No se encontró el videojuego con ID: " + videojuego.getId());
+                return ("Error No se encontró el videojuego con ID: " + videojuego.getId());
             }
         } catch (SQLException e) {
-            return "Videojuego no encontrado";
+            return "Error Videojuego no encontrado";
         }
     }
 }
