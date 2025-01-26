@@ -7,8 +7,10 @@ import app.modelos.Videojuego;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -19,8 +21,6 @@ import java.util.Map;
 public class VistaJavaFX implements Vista {
     private final RouterCV routerCV;
     private Stage stage;
-
-    // Listas observables para jugadores y videojuegos
     private final ObservableList<Jugador> jugadores = FXCollections.observableArrayList();
     private final ObservableList<Videojuego> videoJuegos = FXCollections.observableArrayList();
 
@@ -64,10 +64,10 @@ public class VistaJavaFX implements Vista {
     private Scene crearMenuPrincipal() {
         Label lblTitulo = new Label("Menú Principal");
         lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
-        Button btnJugadores = new Button("Agregar Jugador");
-        Button btnVideojuegos = new Button("Agregar Videojuego");
-        Button btnPartidas = new Button("Agregar Partida");
-        Button btnEstadisticas = new Button("Ver Estadísticas");
+        Button btnJugadores = new Button("Menú Jugadores");
+        Button btnVideojuegos = new Button("Menú Videojuegos");
+        Button btnPartidas = new Button("Menú Partidas");
+        Button btnEstadisticas = new Button("Menú Estadísticas");
         Button btnSalir = new Button("Salir");
 
         btnJugadores.setOnAction(e -> stage.setScene(crearMenuJugadores()));
@@ -205,26 +205,46 @@ public class VistaJavaFX implements Vista {
         return new Scene(layout, 400, 500);
     }
 
-
     /// //////////////////////// JUGADOR
     private void agregarJugador() {
         // Crear formulario de agregar jugador
         Label lblTitulo = new Label("Agregar Jugador");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
         Label lblNombre = new Label("Nombre del jugador:");
+        lblNombre.setStyle("-fx-text-fill: white;");
         TextField txtNombre = new TextField();
+        txtNombre.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblNivel = new Label("Nivel del jugador:");
+        lblNivel.setStyle("-fx-text-fill: white;");
         TextField txtNivel = new TextField();
+        txtNivel.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblPuntuacion = new Label("Puntuación del jugador:");
+        lblPuntuacion.setStyle("-fx-text-fill: white;");
         TextField txtPuntuacion = new TextField();
+        txtPuntuacion.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Button btnAgregar = new Button("Agregar");
+        btnAgregar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
         Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Diseño del formulario
-        VBox layout = new VBox(10, lblTitulo, lblNombre, txtNombre, lblNivel, txtNivel, lblPuntuacion, txtPuntuacion, btnAgregar, btnCancelar);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        VBox layout = new VBox(15, lblTitulo, lblNombre, txtNombre, lblNivel, txtNivel, lblPuntuacion, txtPuntuacion, btnAgregar, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnAgregar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
 
         // Crear escena de agregar jugador
-        Scene escenaAgregarJugador = new Scene(layout, 400, 300);
+        Scene escenaAgregarJugador = new Scene(layout, 500, 360);
 
         // Acción del botón agregar
         btnAgregar.setOnAction(e -> {
@@ -268,23 +288,47 @@ public class VistaJavaFX implements Vista {
     private void actualizarJugador() {
         // Crear formulario de actualizar jugador
         Label lblTitulo = new Label("Actualizar Jugador");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
         Label lblID = new Label("ID del jugador:");
+        lblID.setStyle("-fx-text-fill: white;");
         TextField txtID = new TextField();
+        txtID.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblNombre = new Label("Nuevo nombre del jugador:");
+        lblNombre.setStyle("-fx-text-fill: white;");
         TextField txtNombre = new TextField();
+        txtNombre.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblNivel = new Label("Nuevo nivel del jugador:");
+        lblNivel.setStyle("-fx-text-fill: white;");
         TextField txtNivel = new TextField();
+        txtNivel.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblPuntuacion = new Label("Nueva puntuación del jugador:");
+        lblPuntuacion.setStyle("-fx-text-fill: white;");
         TextField txtPuntuacion = new TextField();
+        txtPuntuacion.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Button btnActualizar = new Button("Actualizar");
+        btnActualizar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
         Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Diseño del formulario
-        VBox layout = new VBox(10, lblTitulo, lblID, txtID, lblNombre, txtNombre, lblNivel, txtNivel, lblPuntuacion, txtPuntuacion, btnActualizar, btnCancelar);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        VBox layout = new VBox(15, lblTitulo, lblID, txtID, lblNombre, txtNombre, lblNivel, txtNivel, lblPuntuacion, txtPuntuacion, btnActualizar, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnActualizar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
 
         // Crear escena de actualizar jugador
-        Scene escenaActualizarJugador = new Scene(layout, 400, 300);
+        Scene escenaActualizarJugador = new Scene(layout, 500, 420);
 
         // Acción del botón actualizar
         btnActualizar.setOnAction(e -> {
@@ -326,17 +370,32 @@ public class VistaJavaFX implements Vista {
     private void eliminarJugador() {
         // Crear formulario de eliminar jugador
         Label lblTitulo = new Label("Eliminar Jugador");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
         Label lblID = new Label("ID del jugador:");
+        lblID.setStyle("-fx-text-fill: white;");
         TextField txtID = new TextField();
+        txtID.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Button btnEliminar = new Button("Eliminar");
+        btnEliminar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
         Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Diseño del formulario
-        VBox layout = new VBox(10, lblTitulo, lblID, txtID, btnEliminar, btnCancelar);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        VBox layout = new VBox(15, lblTitulo, lblID, txtID, btnEliminar, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnEliminar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
 
         // Crear escena de eliminar jugador
-        Scene escenaEliminarJugador = new Scene(layout, 400, 300);
+        Scene escenaEliminarJugador = new Scene(layout, 400, 200);
 
         // Acción del botón eliminar
         btnEliminar.setOnAction(e -> {
@@ -375,17 +434,32 @@ public class VistaJavaFX implements Vista {
     private void verJugadorPorID() {
         // Crear formulario de ver jugador por ID
         Label lblTitulo = new Label("Ver Jugador por ID");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
         Label lblID = new Label("ID del jugador:");
+        lblID.setStyle("-fx-text-fill: white;");
         TextField txtID = new TextField();
+        txtID.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Button btnVer = new Button("Ver Jugador");
+        btnVer.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
         Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Diseño del formulario
-        VBox layout = new VBox(10, lblTitulo, lblID, txtID, btnVer, btnCancelar);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        VBox layout = new VBox(15, lblTitulo, lblID, txtID, btnVer, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnVer, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
 
         // Crear escena de ver jugador por ID
-        Scene escenaVerJugador = new Scene(layout, 400, 300);
+        Scene escenaVerJugador = new Scene(layout, 400, 200);
 
         // Acción del botón ver
         btnVer.setOnAction(e -> {
@@ -428,33 +502,46 @@ public class VistaJavaFX implements Vista {
 
         // Crear botón de volver
         Button btnCancelar = new Button("Volver");
-        btnCancelar.setStyle("-fx-font-size: 14px; -fx-padding: 10px;"); // Opcional: agregar estilo al botón
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Acción del botón: regresar al menú de jugadores
         btnCancelar.setOnAction(e -> stage.setScene(crearMenuJugadores())); // Asumiendo que tienes el método `crearMenuJugadores()` para volver al menú principal
 
         // Crear la escena de listado
         VBox layout = new VBox(10);  // Se agrega un espaciado de 10 entre los elementos
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Crear título
+        Label lblTitulo = new Label("Lista de Jugadores");
+        lblTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
 
         if (jugadores != null && !jugadores.isEmpty()) {
             // Crear un contenedor ScrollPane para hacer la lista desplazable
             ScrollPane scrollPane = new ScrollPane();
             scrollPane.setFitToWidth(true); // Ajustar al ancho de la ventana
+            scrollPane.setStyle("-fx-background-color: #333333;"); // Fondo gris más oscuro para el ScrollPane
 
             // Crear un contenedor para los jugadores
             VBox listaJugadores = new VBox(5);  // Espaciado entre los jugadores
             for (Jugador jugador : jugadores) {
-                listaJugadores.getChildren().add(new Label(jugador.getNombre()));
+                // Crear una label con todos los detalles del jugador
+                Label labelJugador = new Label(
+                        "ID: " + jugador.getId() + "\n" +
+                                "Nombre: " + jugador.getNombre() + "\n" +
+                                "Nivel: " + jugador.getNivel() + "\n" +
+                                "Puntuación: " + jugador.getPuntuacion());
+                labelJugador.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: #444444; -fx-border-radius: 5; -fx-margin: 5px;");
+                labelJugador.setAlignment(Pos.CENTER); // Centrar el contenido dentro de cada label
+                listaJugadores.getChildren().add(labelJugador);
             }
 
             // Agregar la lista de jugadores al ScrollPane
             scrollPane.setContent(listaJugadores);
 
-            // Añadir el ScrollPane al layout principal
-            layout.getChildren().addAll(scrollPane, btnCancelar);  // Asegura que el botón se muestre después de la lista
+            // Añadir el título y el ScrollPane al layout principal
+            layout.getChildren().addAll(lblTitulo, scrollPane, btnCancelar);  // Asegura que el botón se muestre después de la lista
         } else {
-            layout.getChildren().addAll(new Label("No hay jugadores registrados."), btnCancelar);
+            layout.getChildren().addAll(lblTitulo, new Label("No hay jugadores registrados."), btnCancelar);
         }
 
         // Crear la escena y mostrarla
@@ -462,26 +549,46 @@ public class VistaJavaFX implements Vista {
         stage.setScene(escenaListarJugadores);
     }
 
-
     /// //////////////////VIDEOJUEGO
     private void agregarVideojuego() {
         // Crear formulario de agregar videojuego
         Label lblTitulo = new Label("Agregar Videojuego");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
         Label lblTituloJuego = new Label("Título del videojuego:");
+        lblTituloJuego.setStyle("-fx-text-fill: white;");
         TextField txtTitulo = new TextField();
+        txtTitulo.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblGenero = new Label("Género del videojuego:");
+        lblGenero.setStyle("-fx-text-fill: white;");
         TextField txtGenero = new TextField();
+        txtGenero.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblPrecio = new Label("Precio del videojuego:");
+        lblPrecio.setStyle("-fx-text-fill: white;");
         TextField txtPrecio = new TextField();
+        txtPrecio.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Button btnAgregar = new Button("Agregar");
+        btnAgregar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
         Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Diseño del formulario
-        VBox layout = new VBox(10, lblTitulo, lblTituloJuego, txtTitulo, lblGenero, txtGenero, lblPrecio, txtPrecio, btnAgregar, btnCancelar);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        VBox layout = new VBox(15, lblTitulo, lblTituloJuego, txtTitulo, lblGenero, txtGenero, lblPrecio, txtPrecio, btnAgregar, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnAgregar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
 
         // Crear escena de agregar videojuego
-        Scene escenaAgregarVideojuego = new Scene(layout, 400, 300);
+        Scene escenaAgregarVideojuego = new Scene(layout, 500, 360);
 
         // Acción del botón agregar
         btnAgregar.setOnAction(e -> {
@@ -524,23 +631,47 @@ public class VistaJavaFX implements Vista {
     private void actualizarVideojuego() {
         // Crear formulario de actualizar videojuego
         Label lblTitulo = new Label("Actualizar Videojuego");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
         Label lblID = new Label("ID del videojuego:");
+        lblID.setStyle("-fx-text-fill: white;");
         TextField txtID = new TextField();
+        txtID.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblTituloJuego = new Label("Nuevo título del videojuego:");
+        lblTituloJuego.setStyle("-fx-text-fill: white;");
         TextField txtTitulo = new TextField();
+        txtTitulo.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblGenero = new Label("Nuevo género del videojuego:");
+        lblGenero.setStyle("-fx-text-fill: white;");
         TextField txtGenero = new TextField();
+        txtGenero.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Label lblPrecio = new Label("Nuevo precio del videojuego:");
+        lblPrecio.setStyle("-fx-text-fill: white;");
         TextField txtPrecio = new TextField();
+        txtPrecio.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Button btnActualizar = new Button("Actualizar");
+        btnActualizar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
         Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Diseño del formulario
-        VBox layout = new VBox(10, lblTitulo, lblID, txtID, lblTituloJuego, txtTitulo, lblGenero, txtGenero, lblPrecio, txtPrecio, btnActualizar, btnCancelar);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        VBox layout = new VBox(15, lblTitulo, lblID, txtID, lblTituloJuego, txtTitulo, lblGenero, txtGenero, lblPrecio, txtPrecio, btnActualizar, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnActualizar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
 
         // Crear escena de actualizar videojuego
-        Scene escenaActualizarVideojuego = new Scene(layout, 400, 300);
+        Scene escenaActualizarVideojuego = new Scene(layout, 500, 420);
 
         // Acción del botón actualizar
         btnActualizar.setOnAction(e -> {
@@ -582,17 +713,32 @@ public class VistaJavaFX implements Vista {
     private void eliminarVideojuego() {
         // Crear formulario de eliminar videojuego
         Label lblTitulo = new Label("Eliminar Videojuego");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
         Label lblID = new Label("ID del videojuego:");
+        lblID.setStyle("-fx-text-fill: white;");
         TextField txtID = new TextField();
+        txtID.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Button btnEliminar = new Button("Eliminar");
+        btnEliminar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
         Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Diseño del formulario
-        VBox layout = new VBox(10, lblTitulo, lblID, txtID, btnEliminar, btnCancelar);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        VBox layout = new VBox(15, lblTitulo, lblID, txtID, btnEliminar, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnEliminar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
 
         // Crear escena de eliminar videojuego
-        Scene escenaEliminarVideojuego = new Scene(layout, 400, 300);
+        Scene escenaEliminarVideojuego = new Scene(layout, 500, 200);
 
         // Acción del botón eliminar
         btnEliminar.setOnAction(e -> {
@@ -631,17 +777,32 @@ public class VistaJavaFX implements Vista {
     private void verVideojuegoPorID() {
         // Crear formulario de ver videojuego por ID
         Label lblTitulo = new Label("Ver Videojuego por ID");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
         Label lblID = new Label("ID del videojuego:");
+        lblID.setStyle("-fx-text-fill: white;");
         TextField txtID = new TextField();
+        txtID.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
         Button btnVer = new Button("Ver Videojuego");
+        btnVer.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
         Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Diseño del formulario
-        VBox layout = new VBox(10, lblTitulo, lblID, txtID, btnVer, btnCancelar);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        VBox layout = new VBox(15, lblTitulo, lblID, txtID, btnVer, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnVer, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
 
         // Crear escena de ver videojuego por ID
-        Scene escenaVerVideojuego = new Scene(layout, 400, 300);
+        Scene escenaVerVideojuego = new Scene(layout, 500, 200);
 
         // Acción del botón ver
         btnVer.setOnAction(e -> {
@@ -682,47 +843,107 @@ public class VistaJavaFX implements Vista {
         // Obtener lista de videojuegos
         List<Videojuego> videojuegos = (List<Videojuego>) routerCV.ejecutarAccion("videojuegos", "listarVideojuegos");
 
-        // Crear un VBox para contener los elementos de la lista
-        VBox vboxContenido = new VBox(10);
-        vboxContenido.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        // Crear botón de volver
+        Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
+        // Acción del botón: regresar al menú de videojuegos
+        btnCancelar.setOnAction(e -> stage.setScene(crearMenuVideojuegos())); // Asumiendo que tienes el método `crearMenuVideojuegos()` para volver al menú principal
+
+        // Crear la escena de listado
+        VBox layout = new VBox(10);  // Se agrega un espaciado de 10 entre los elementos
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Crear título
+        Label lblTitulo = new Label("Lista de Videojuegos");
+        lblTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
 
         if (videojuegos != null && !videojuegos.isEmpty()) {
+            // Crear un contenedor ScrollPane para hacer la lista desplazable
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setFitToWidth(true); // Ajustar al ancho de la ventana
+            scrollPane.setStyle("-fx-background-color: #333333;"); // Fondo gris más oscuro para el ScrollPane
+
+            // Crear un contenedor para los videojuegos
+            VBox listaVideojuegos = new VBox(5);  // Espaciado entre los videojuegos
             for (Videojuego videojuego : videojuegos) {
-                vboxContenido.getChildren().add(new Label("ID: " + videojuego.getId() + " - Título: " + videojuego.getTitulo()));
+                // Crear una label con todos los detalles del videojuego
+                Label labelVideojuego = new Label(
+                        "ID: " + videojuego.getId() + "\n" +
+                                "Título: " + videojuego.getTitulo() + "\n" +
+                                "Género: " + videojuego.getGenero() + "\n" +
+                                "Precio: " + videojuego.getPrecio());
+                labelVideojuego.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: #444444; -fx-border-radius: 5; -fx-margin: 5px;");
+                labelVideojuego.setAlignment(Pos.CENTER); // Centrar el contenido dentro de cada label
+                listaVideojuegos.getChildren().add(labelVideojuego);
             }
+
+            // Agregar la lista de videojuegos al ScrollPane
+            scrollPane.setContent(listaVideojuegos);
+
+            // Añadir el título y el ScrollPane al layout principal
+            layout.getChildren().addAll(lblTitulo, scrollPane, btnCancelar);  // Asegura que el botón se muestre después de la lista
         } else {
-            vboxContenido.getChildren().add(new Label("No hay videojuegos disponibles."));
+            layout.getChildren().addAll(lblTitulo, new Label("No hay videojuegos registrados."), btnCancelar);
         }
 
-        // Crear un ScrollPane para envolver el contenido
-        ScrollPane scrollPane = new ScrollPane(vboxContenido);
-        scrollPane.setFitToWidth(true);  // Ajusta el ancho para que el contenido no se desborde
-
-        // Crear el botón para volver al menú
-        Button btnVolver = new Button("Volver al menú de Videojuegos");
-        btnVolver.setOnAction(e -> stage.setScene(crearMenuVideojuegos()));  // Cambia al menú de videojuegos
-
-        // Crear un VBox para contener el ScrollPane y el botón
-        VBox layout = new VBox(10, scrollPane, btnVolver);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
-
-        // Crear la escena con el layout
+        // Crear la escena y mostrarla
         Scene escenaListarVideojuegos = new Scene(layout, 400, 300);
         stage.setScene(escenaListarVideojuegos);
     }
 
     /// /////////////PARTIDA
     private void agregarPartida() {
-        // Crear un formulario con campos de texto para ingresar datos
+        // Crear formulario de agregar partida
+        Label lblTitulo = new Label("Agregar Partida");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
+        Label lblIdJugador = new Label("ID del Jugador:");
+        lblIdJugador.setStyle("-fx-text-fill: white;");
         TextField txtIdJugador = new TextField();
+        txtIdJugador.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblIdVideojuego = new Label("ID del Videojuego:");
+        lblIdVideojuego.setStyle("-fx-text-fill: white;");
         TextField txtIdVideojuego = new TextField();
+        txtIdVideojuego.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblDuracion = new Label("Duración (horas):");
+        lblDuracion.setStyle("-fx-text-fill: white;");
         TextField txtDuracion = new TextField();
+        txtDuracion.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblFecha = new Label("Fecha (yyyy-mm-dd):");
+        lblFecha.setStyle("-fx-text-fill: white;");
         TextField txtFecha = new TextField();
+        txtFecha.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblPuntos = new Label("Puntos:");
+        lblPuntos.setStyle("-fx-text-fill: white;");
         TextField txtPuntos = new TextField();
+        txtPuntos.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
 
         Button btnAgregar = new Button("Agregar Partida");
-        Label lblResultado = new Label();
+        btnAgregar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
+        Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
+        // Diseño del formulario
+        VBox layout = new VBox(15, lblTitulo, lblIdJugador, txtIdJugador, lblIdVideojuego, txtIdVideojuego, lblDuracion, txtDuracion, lblFecha, txtFecha, lblPuntos, txtPuntos, btnAgregar, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnAgregar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
+
+        // Crear escena de agregar partida
+        Scene escenaAgregarPartida = new Scene(layout, 500, 500);
+
+        // Acción del botón agregar
         btnAgregar.setOnAction(e -> {
             try {
                 int idJugador = Integer.parseInt(txtIdJugador.getText());
@@ -740,35 +961,87 @@ public class VistaJavaFX implements Vista {
 
                 // Muestra el resultado
                 if (resultado.startsWith("Error")) {
-                    lblResultado.setText("Error: " + resultado);
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + resultado, ButtonType.OK);
+                    alert.showAndWait();
                 } else {
-                    lblResultado.setText("Partida agregada exitosamente.");
+                    // Mostrar mensaje de éxito
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Partida agregada exitosamente.", ButtonType.OK);
+                    alert.showAndWait();
+
+                    // Volver al menú principal
+                    stage.setScene(crearMenuPartidas());
                 }
             } catch (Exception ex) {
-                lblResultado.setText("Error en los datos ingresados.");
+                // Manejo de error si los campos no son válidos
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Por favor ingrese datos válidos.", ButtonType.OK);
+                alert.showAndWait();
             }
         });
 
-        VBox vbox = new VBox(10, new Label("ID Jugador:"), txtIdJugador, new Label("ID Videojuego:"), txtIdVideojuego, new Label("Duración (horas):"), txtDuracion,
-                new Label("Fecha (yyyy-mm-dd):"), txtFecha, new Label("Puntos:"), txtPuntos, btnAgregar, lblResultado);
-        vbox.setStyle("-fx-padding: 20;");
+        // Acción del botón cancelar
+        btnCancelar.setOnAction(e -> stage.setScene(crearMenuPartidas()));
 
-        Scene scene = new Scene(vbox, 400, 300);
-        stage.setScene(scene);
+        // Mostrar la escena
+        stage.setScene(escenaAgregarPartida);
     }
 
     private void actualizarPartida() {
-        // Crear campos para ingresar los datos
+        // Crear formulario de actualizar partida
+        Label lblTitulo = new Label("Actualizar Partida");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
+        Label lblIdPartida = new Label("ID de la Partida:");
+        lblIdPartida.setStyle("-fx-text-fill: white;");
         TextField txtIdPartida = new TextField();
+        txtIdPartida.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblIdJugador = new Label("ID del Jugador:");
+        lblIdJugador.setStyle("-fx-text-fill: white;");
         TextField txtIdJugador = new TextField();
+        txtIdJugador.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblIdVideojuego = new Label("ID del Videojuego:");
+        lblIdVideojuego.setStyle("-fx-text-fill: white;");
         TextField txtIdVideojuego = new TextField();
+        txtIdVideojuego.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblDuracion = new Label("Duración (horas):");
+        lblDuracion.setStyle("-fx-text-fill: white;");
         TextField txtDuracion = new TextField();
+        txtDuracion.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblFecha = new Label("Fecha (yyyy-mm-dd):");
+        lblFecha.setStyle("-fx-text-fill: white;");
         TextField txtFecha = new TextField();
+        txtFecha.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Label lblPuntos = new Label("Puntos:");
+        lblPuntos.setStyle("-fx-text-fill: white;");
         TextField txtPuntos = new TextField();
+        txtPuntos.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
 
         Button btnActualizar = new Button("Actualizar Partida");
-        Label lblResultado = new Label();
+        btnActualizar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
+        Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
+        // Diseño del formulario
+        VBox layout = new VBox(15, lblTitulo, lblIdPartida, txtIdPartida, lblIdJugador, txtIdJugador, lblIdVideojuego, txtIdVideojuego, lblDuracion, txtDuracion,
+                lblFecha, txtFecha, lblPuntos, txtPuntos, btnActualizar, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnActualizar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
+
+        // Crear escena de actualizar partida
+        Scene escenaActualizarPartida = new Scene(layout, 500, 600);
+
+        // Acción del botón actualizar
         btnActualizar.setOnAction(e -> {
             try {
                 int idPartida = Integer.parseInt(txtIdPartida.getText());
@@ -790,28 +1063,47 @@ public class VistaJavaFX implements Vista {
 
                 // Muestra el resultado
                 if (resultado.startsWith("Error")) {
-                    lblResultado.setText("Error: " + resultado);
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + resultado, ButtonType.OK);
+                    alert.showAndWait();
                 } else {
-                    lblResultado.setText("Partida actualizada exitosamente.");
+                    // Mostrar mensaje de éxito
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Partida actualizada exitosamente.", ButtonType.OK);
+                    alert.showAndWait();
+
+                    // Volver al menú de partidas
+                    stage.setScene(crearMenuPartidas());
                 }
             } catch (Exception ex) {
-                lblResultado.setText("Error en los datos ingresados.");
+                // Manejo de error si los campos no son válidos
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Por favor ingrese datos válidos.", ButtonType.OK);
+                alert.showAndWait();
             }
         });
 
-        VBox vbox = new VBox(10, new Label("ID Partida:"), txtIdPartida, new Label("ID Jugador:"), txtIdJugador, new Label("ID Videojuego:"), txtIdVideojuego,
-                new Label("Duración (horas):"), txtDuracion, new Label("Fecha (yyyy-mm-dd):"), txtFecha, new Label("Puntos:"), txtPuntos, btnActualizar, lblResultado);
-        vbox.setStyle("-fx-padding: 20;");
+        // Acción del botón cancelar
+        btnCancelar.setOnAction(e -> stage.setScene(crearMenuPartidas()));
 
-        Scene scene = new Scene(vbox, 400, 300);
-        stage.setScene(scene);
+        // Mostrar la escena
+        stage.setScene(escenaActualizarPartida);
     }
 
     private void eliminarPartida() {
-        TextField txtIdPartida = new TextField();
-        Button btnEliminar = new Button("Eliminar Partida");
-        Label lblResultado = new Label();
+        // Crear formulario de eliminar partida
+        Label lblTitulo = new Label("Eliminar Partida");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
 
+        Label lblIdPartida = new Label("ID de la Partida:");
+        lblIdPartida.setStyle("-fx-text-fill: white;");
+        TextField txtIdPartida = new TextField();
+        txtIdPartida.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Button btnEliminar = new Button("Eliminar Partida");
+        btnEliminar.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
+        Label lblResultado = new Label();
+        lblResultado.setStyle("-fx-text-fill: white;");
+
+        // Acción del botón eliminar
         btnEliminar.setOnAction(e -> {
             try {
                 int idPartida = Integer.parseInt(txtIdPartida.getText());
@@ -830,185 +1122,402 @@ public class VistaJavaFX implements Vista {
             }
         });
 
-        VBox vbox = new VBox(10, new Label("ID Partida:"), txtIdPartida, btnEliminar, lblResultado);
-        vbox.setStyle("-fx-padding: 20;");
+        Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
 
-        Scene scene = new Scene(vbox, 400, 200);
-        stage.setScene(scene);
+        // Diseño del formulario
+        VBox layout = new VBox(15, lblTitulo, lblIdPartida, txtIdPartida, btnEliminar, lblResultado);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnEliminar, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
+
+        // Crear escena de eliminar partida
+        Scene escenaEliminarPartida = new Scene(layout, 500, 250);
+
+        // Acción del botón cancelar
+        btnCancelar.setOnAction(e -> stage.setScene(crearMenuPartidas()));
+
+        // Mostrar la escena
+        stage.setScene(escenaEliminarPartida);
     }
 
     private void verPartidaPorID() {
-        TextField txtIdPartida = new TextField();
-        Button btnBuscar = new Button("Ver Partida");
-        Label lblResultado = new Label();
+        // Crear formulario de ver partida por ID
+        Label lblTitulo = new Label("Ver Partida por ID");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
 
-        btnBuscar.setOnAction(e -> {
+        Label lblIDPartida = new Label("ID de la Partida:");
+        lblIDPartida.setStyle("-fx-text-fill: white;");
+        TextField txtIdPartida = new TextField();
+        txtIdPartida.setStyle("-fx-background-color: #444444; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-border-color: #666666;");
+
+        Button btnVer = new Button("Ver Partida");
+        btnVer.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
+        Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+
+        // Diseño del formulario
+        VBox layout = new VBox(15, lblTitulo, lblIDPartida, txtIdPartida, btnVer, btnCancelar);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: top-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Alinear los botones a la izquierda
+        HBox hboxBotones = new HBox(15, btnVer, btnCancelar);
+        hboxBotones.setStyle("-fx-alignment: center-left;"); // Alineación a la izquierda
+
+        // Agregar los botones al layout
+        layout.getChildren().add(hboxBotones);
+
+        // Crear escena de ver partida por ID
+        Scene escenaVerPartida = new Scene(layout, 500, 200);
+
+        // Acción del botón ver
+        btnVer.setOnAction(e -> {
             try {
                 int idPartida = Integer.parseInt(txtIdPartida.getText());
 
-                // Llama al método del controlador para obtener la partida
+                // Ejecutar la acción en el router
                 Partida partida = (Partida) routerCV.ejecutarAccion("partidas", "getPartida", idPartida);
 
-                if (partida != null) {
-                    lblResultado.setText("Partida encontrada: " + partida.toString());
+                if (partida == null) {
+                    // Mostrar error si no se encuentra la partida
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Partida no encontrada.", ButtonType.OK);
+                    alert.showAndWait();
                 } else {
-                    lblResultado.setText("Partida no encontrada.");
+                    // Mostrar detalles de la partida
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                            "ID: " + partida.getId() + "\n" +
+                                    "Jugador: " + partida.getIdJugador() + "\n" +
+                                    "Videojuego: " + partida.getIdVideojuego() + "\n" +
+                                    "Duración: " + partida.getHorasJugadas() + " horas\n" +
+                                    "Puntos: " + partida.getPuntosObtenidos() + "\n" +
+                                    "Fecha: " + partida.getFechaPartida(), ButtonType.OK);
+                    alert.showAndWait();
                 }
-            } catch (Exception ex) {
-                lblResultado.setText("Error en los datos ingresados.");
+            } catch (NumberFormatException ex) {
+                // Manejo de error si el ID no es un número válido
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Por favor ingrese un ID válido.", ButtonType.OK);
+                alert.showAndWait();
             }
         });
 
-        VBox vbox = new VBox(10, new Label("ID Partida:"), txtIdPartida, btnBuscar, lblResultado);
-        vbox.setStyle("-fx-padding: 20;");
+        // Acción del botón cancelar
+        btnCancelar.setOnAction(e -> stage.setScene(crearMenuPartidas()));
 
-        Scene scene = new Scene(vbox, 400, 200);
-        stage.setScene(scene);
+        // Mostrar la escena
+        stage.setScene(escenaVerPartida);
     }
 
     private void listarPartidas() {
+        // Obtener lista de partidas
         List<Partida> partidas = (List<Partida>) routerCV.ejecutarAccion("partidas", "listarPartidas");
 
-        VBox layout = new VBox(10);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        // Crear botón de volver
+        Button btnCancelar = new Button("Volver");
+        btnCancelar.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+        btnCancelar.setOnAction(e -> stage.setScene(crearMenuPartidas())); // Acción para volver al menú de partidas
+
+        // Crear la escena de listado
+        VBox layout = new VBox(10);  // Espaciado entre los elementos
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center-left; -fx-background-color: #555555;"); // Fondo gris claro
+
+        // Crear título
+        Label lblTitulo = new Label("Lista de Partidas");
+        lblTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
 
         if (partidas != null && !partidas.isEmpty()) {
+            // Crear un contenedor ScrollPane para hacer la lista desplazable
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setFitToWidth(true); // Ajustar al ancho de la ventana
+            scrollPane.setStyle("-fx-background-color: #333333;"); // Fondo gris más oscuro para el ScrollPane
+
+            // Crear un contenedor para las partidas
+            VBox listaPartidas = new VBox(5);  // Espaciado entre las partidas
             for (Partida partida : partidas) {
-                layout.getChildren().add(new Label("ID: " + partida.getId() + " - Jugador: " + partida.getIdJugador().getNombre() +
-                        " - Videojuego: " + partida.getIdVideojuego().getTitulo() + " - Fecha: " + partida.getFechaPartida()));
+                // Crear una label con todos los detalles de la partida
+                Label labelPartida = new Label(
+                        "ID: " + partida.getId() + "\n" +
+                                "Jugador: " + partida.getIdJugador() + "\n" +
+                                "Videojuego: " + partida.getIdVideojuego() + "\n" +
+                                "Fecha: " + partida.getFechaPartida());
+                labelPartida.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: #444444; -fx-border-radius: 5; -fx-margin: 5px;");
+                labelPartida.setAlignment(Pos.CENTER); // Centrar el contenido dentro de cada label
+                listaPartidas.getChildren().add(labelPartida);
             }
+
+            // Agregar la lista de partidas al ScrollPane
+            scrollPane.setContent(listaPartidas);
+
+            // Añadir el título y el ScrollPane al layout principal
+            layout.getChildren().addAll(lblTitulo, scrollPane, btnCancelar);  // Asegura que el botón se muestre después de la lista
         } else {
-            layout.getChildren().add(new Label("No se encontraron partidas."));
+            layout.getChildren().addAll(lblTitulo, new Label("No hay partidas registradas."), btnCancelar);
         }
 
-        // Agregar botón para volver al menú
-        Button btnVolver = new Button("Volver al menú de Partidas");
-        btnVolver.setOnAction(e -> stage.setScene(crearMenuPartidas()));  // Asume que tienes un método crearMenuPartidas() para regresar al menú principal
-
-        // Crear ScrollPane
-        ScrollPane scrollPane = new ScrollPane(layout);
-        scrollPane.setFitToWidth(true);
-
-        VBox vbox = new VBox(10, scrollPane, btnVolver);
-        Scene scene = new Scene(vbox, 400, 300);
-        stage.setScene(scene);
+        // Crear la escena y mostrarla
+        Scene escenaListarPartidas = new Scene(layout, 400, 300);
+        stage.setScene(escenaListarPartidas);
     }
 
     /// ///////////ESTADISTICA
     private void verEstadisticasHoras() {
+        // Obtener las partidas con las estadísticas de horas
         List<Partida> partidas = (List<Partida>) routerCV.ejecutarAccion("partidas", "verEstadisticasHoras");
 
+        // Crear layout principal
         VBox layout = new VBox(10);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #555555;");
+
+        // Título de la sección
+        Label lblTitulo = new Label("Top 10 Estadísticas de Horas Jugadas");
+        lblTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
 
         if (partidas != null && !partidas.isEmpty()) {
-            for (Partida partida : partidas) {
-                layout.getChildren().add(new Label("ID: " + partida.getId() + " - Jugador: " + partida.getIdJugador().getNombre() +
-                        " - Videojuego: " + partida.getIdVideojuego().getTitulo() + " - Horas jugadas: " + partida.getHorasJugadas()));
+            // Crear ScrollPane para la lista de partidas
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setFitToWidth(true);
+            scrollPane.setStyle("-fx-background-color: #333333;");
+
+            // Crear contenedor para las partidas
+            VBox listaPartidas = new VBox(5);  // Espaciado entre las partidas
+            for (int i = 0; i < Math.min(partidas.size(), 10); i++) {
+                Partida partida = partidas.get(i);
+
+                // Establecer estilo degradado para los primeros tres puestos
+                String fondo = "#444444"; // Fondo gris estándar
+                if (i == 0) {
+                    fondo = "linear-gradient(to right, #d32f2f, #b71c1c)";  // Rojo para el primer puesto
+                } else if (i == 1) {
+                    fondo = "linear-gradient(to right, #e64a19, #d84315)";  // Rojo claro para el segundo puesto
+                } else if (i == 2) {
+                    fondo = "linear-gradient(to right, #f57c00, #ff7043)";  // Naranja rojizo para el tercer puesto
+                }
+
+                // Crear una etiqueta para cada partida
+                Label labelPartida = new Label(
+                        (i + 1) + ". ID: " + partida.getId() + " - Jugador: " + partida.getIdJugador().getNombre() +
+                                " - Videojuego: " + partida.getIdVideojuego().getTitulo() + " - Horas jugadas: " + partida.getHorasJugadas());
+                labelPartida.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: " + fondo + "; -fx-border-radius: 5; -fx-margin: 5px;");
+                labelPartida.setAlignment(Pos.CENTER);  // Centrar el contenido dentro de cada label
+                listaPartidas.getChildren().add(labelPartida);
             }
+
+            // Añadir la lista de partidas al ScrollPane
+            scrollPane.setContent(listaPartidas);
+
+            // Añadir el título y el ScrollPane al layout principal
+            layout.getChildren().addAll(lblTitulo, scrollPane);
         } else {
-            layout.getChildren().add(new Label("No se encontraron estadísticas de horas."));
+            layout.getChildren().addAll(lblTitulo, new Label("No se encontraron estadísticas de horas."));
         }
 
-        // Agregar botón para volver al menú
+        // Crear botón de volver
         Button btnVolver = new Button("Volver al menú de Estadísticas");
-        btnVolver.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));  // Método que te lleva al menú de estadísticas
+        btnVolver.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+        btnVolver.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));  // Acción para volver al menú de estadísticas
 
-        // Crear ScrollPane
-        ScrollPane scrollPane = new ScrollPane(layout);
-        scrollPane.setFitToWidth(true);
+        // Añadir el botón al layout principal
+        layout.getChildren().add(btnVolver);
 
-        VBox vbox = new VBox(10, scrollPane, btnVolver);
-        Scene scene = new Scene(vbox, 400, 300);
-        stage.setScene(scene);
+        // Crear la escena y mostrarla
+        Scene escenaEstadisticasHoras = new Scene(layout, 450, 400);
+        stage.setScene(escenaEstadisticasHoras);
     }
 
     private void verEstadisticasPuntuacion() {
+        // Obtener la lista de jugadores con las estadísticas de puntuación
         List<Jugador> jugadores = (List<Jugador>) routerCV.ejecutarAccion("jugadores", "verEstadisticasPuntuacion");
 
+        // Crear layout principal
         VBox layout = new VBox(10);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #555555;");
+
+        // Título de la sección
+        Label lblTitulo = new Label("Top 10 Estadísticas de Puntuación");
+        lblTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
 
         if (jugadores != null && !jugadores.isEmpty()) {
-            for (Jugador jugador : jugadores) {
-                layout.getChildren().add(new Label("Jugador: " + jugador.getNombre() + " - Puntuación: " + jugador.getPuntuacion()));
+            // Crear ScrollPane para la lista de jugadores
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setFitToWidth(true);
+            scrollPane.setStyle("-fx-background-color: #333333;");
+
+            // Crear contenedor para los jugadores
+            VBox listaJugadores = new VBox(5);  // Espaciado entre los jugadores
+            for (int i = 0; i < Math.min(jugadores.size(), 10); i++) {
+                Jugador jugador = jugadores.get(i);
+
+                // Establecer estilo degradado para los primeros tres puestos
+                String fondo = "#444444"; // Fondo gris estándar
+                if (i == 0) {
+                    fondo = "linear-gradient(to right, #d32f2f, #b71c1c)";  // Rojo para el primer puesto
+                } else if (i == 1) {
+                    fondo = "linear-gradient(to right, #e64a19, #d84315)";  // Rojo claro para el segundo puesto
+                } else if (i == 2) {
+                    fondo = "linear-gradient(to right, #f57c00, #ff7043)";  // Naranja rojizo para el tercer puesto
+                }
+
+                // Crear una etiqueta para cada jugador
+                Label labelJugador = new Label(
+                        (i + 1) + ". Jugador: " + jugador.getNombre() + " - Puntuación: " + jugador.getPuntuacion());
+                labelJugador.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: " + fondo + "; -fx-border-radius: 5; -fx-margin: 5px;");
+                labelJugador.setAlignment(Pos.CENTER);  // Centrar el contenido dentro de cada label
+                listaJugadores.getChildren().add(labelJugador);
             }
+
+            // Añadir la lista de jugadores al ScrollPane
+            scrollPane.setContent(listaJugadores);
+
+            // Añadir el título y el ScrollPane al layout principal
+            layout.getChildren().addAll(lblTitulo, scrollPane);
         } else {
-            layout.getChildren().add(new Label("No se encontraron estadísticas de puntuación."));
+            layout.getChildren().addAll(lblTitulo, new Label("No se encontraron estadísticas de puntuación."));
         }
 
-        // Agregar botón para volver al menú
-        Button btnVolver = new Button("Volver al menú de Estadísticas");
-        btnVolver.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));  // Método que te lleva al menú de estadísticas
+        // Crear botón de volver
+        Button btnVolver = new Button("Volver al menú");
+        btnVolver.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+        btnVolver.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));  // Acción para volver al menú de estadísticas
 
-        // Crear ScrollPane
-        ScrollPane scrollPane = new ScrollPane(layout);
-        scrollPane.setFitToWidth(true);
+        // Añadir el botón al layout principal
+        layout.getChildren().add(btnVolver);
 
-        VBox vbox = new VBox(10, scrollPane, btnVolver);
-        Scene scene = new Scene(vbox, 400, 300);
-        stage.setScene(scene);
+        // Crear la escena y mostrarla
+        Scene escenaEstadisticasPuntuacion = new Scene(layout, 450, 400);
+        stage.setScene(escenaEstadisticasPuntuacion);
     }
 
     private void verEstadisticasExperiencia() {
+        // Obtener la lista de jugadores con las estadísticas de experiencia
         List<Jugador> jugadores = (List<Jugador>) routerCV.ejecutarAccion("jugadores", "verEstadisticasExperiencia");
 
+        // Crear layout principal
         VBox layout = new VBox(10);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #555555;");
+
+        // Título de la sección
+        Label lblTitulo = new Label("Top 10 Estadísticas de Experiencia");
+        lblTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
 
         if (jugadores != null && !jugadores.isEmpty()) {
-            for (Jugador jugador : jugadores) {
-                layout.getChildren().add(new Label("Jugador: " + jugador.getNombre() + " - Experiencia/Nivel: " + jugador.getNivel()));
+            // Crear ScrollPane para la lista de jugadores
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setFitToWidth(true);
+            scrollPane.setStyle("-fx-background-color: #333333;");
+
+            // Crear contenedor para los jugadores
+            VBox listaJugadores = new VBox(5);  // Espaciado entre los jugadores
+            for (int i = 0; i < Math.min(jugadores.size(), 10); i++) {
+                Jugador jugador = jugadores.get(i);
+
+                // Establecer estilo degradado para los primeros tres puestos
+                String fondo = "#444444"; // Fondo gris estándar
+                if (i == 0) {
+                    fondo = "linear-gradient(to right, #d32f2f, #b71c1c)";  // Rojo para el primer puesto
+                } else if (i == 1) {
+                    fondo = "linear-gradient(to right, #e64a19, #d84315)";  // Rojo claro para el segundo puesto
+                } else if (i == 2) {
+                    fondo = "linear-gradient(to right, #f57c00, #ff7043)";  // Naranja rojizo para el tercer puesto
+                }
+
+                // Crear una etiqueta para cada jugador
+                Label labelJugador = new Label(
+                        (i + 1) + ". Jugador: " + jugador.getNombre() + " - Nivel: " + jugador.getNivel());
+                labelJugador.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: " + fondo + "; -fx-border-radius: 5; -fx-margin: 5px;");
+                labelJugador.setAlignment(Pos.CENTER);  // Centrar el contenido dentro de cada label
+                listaJugadores.getChildren().add(labelJugador);
             }
+
+            // Añadir la lista de jugadores al ScrollPane
+            scrollPane.setContent(listaJugadores);
+
+            // Añadir el título y el ScrollPane al layout principal
+            layout.getChildren().addAll(lblTitulo, scrollPane);
         } else {
-            layout.getChildren().add(new Label("No se encontraron estadísticas de experiencia."));
+            layout.getChildren().addAll(lblTitulo, new Label("No se encontraron estadísticas de experiencia."));
         }
 
-        // Agregar botón para volver al menú
+        // Crear botón de volver
         Button btnVolver = new Button("Volver al menú de Estadísticas");
-        btnVolver.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));  // Método que te lleva al menú de estadísticas
+        btnVolver.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+        btnVolver.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));  // Acción para volver al menú de estadísticas
 
-        // Crear ScrollPane
-        ScrollPane scrollPane = new ScrollPane(layout);
-        scrollPane.setFitToWidth(true);
+        // Añadir el botón al layout principal
+        layout.getChildren().add(btnVolver);
 
-        VBox vbox = new VBox(10, scrollPane, btnVolver);
-        Scene scene = new Scene(vbox, 400, 300);
-        stage.setScene(scene);
+        // Crear la escena y mostrarla
+        Scene escenaEstadisticasExperiencia = new Scene(layout, 450, 400);
+        stage.setScene(escenaEstadisticasExperiencia);
     }
 
     private void mostrarClasificacionVideojuegos() {
         // Obtener la clasificación de videojuegos desde el controlador
         List<Map<String, Object>> clasificacion = (List<Map<String, Object>>) routerCV.ejecutarAccion("partidas", "obtenerClasificacionVideojuegos");
 
+        // Crear layout principal
         VBox layout = new VBox(10);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #555555;");
 
+        // Título de la sección
+        Label lblTitulo = new Label("Top 5 Clasificación de Videojuegos");
+        lblTitulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+
+        // Comprobar si hay clasificación disponible
         if (clasificacion != null && !clasificacion.isEmpty()) {
-            // Recorremos cada mapa que representa un videojuego y sus detalles
-            for (Map<String, Object> clasificacionMap : clasificacion) {
-                String titulo = (String) clasificacionMap.get("titulo");  // Obtenemos el título del videojuego
-                Integer puntos = (Integer) clasificacionMap.get("puntos");  // Obtenemos los puntos del videojuego
+            // Crear ScrollPane para la lista de videojuegos
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setFitToWidth(true);
+            scrollPane.setStyle("-fx-background-color: #333333;");
 
-                // Agregamos una etiqueta que contiene el nombre y los puntos del videojuego
-                layout.getChildren().add(new Label("Videojuego: " + titulo + " - Puntos: " + puntos));
+            // Crear contenedor para los videojuegos
+            VBox listaVideojuegos = new VBox(5);  // Espaciado entre los videojuegos
+            for (int i = 0; i < Math.min(clasificacion.size(), 10); i++) {
+                Map<String, Object> clasificacionMap = clasificacion.get(i);
+                String titulo = (String) clasificacionMap.get("nombre_videojuego");
+                Integer puntos = (Integer) clasificacionMap.get("total_horas");
+
+                // Establecer estilo degradado para los primeros tres puestos
+                String fondo = "#444444"; // Fondo gris estándar
+                if (i == 0) {
+                    fondo = "linear-gradient(to right, #d32f2f, #b71c1c)";  // Rojo para el primer puesto
+                } else if (i == 1) {
+                    fondo = "linear-gradient(to right, #e64a19, #d84315)";  // Rojo claro para el segundo puesto
+                } else if (i == 2) {
+                    fondo = "linear-gradient(to right, #f57c00, #ff7043)";  // Naranja rojizo para el tercer puesto
+                }
+
+                // Crear una etiqueta para cada videojuego
+                Label labelVideojuego = new Label(
+                        (i + 1) + ". Videojuego: " + titulo + " - Puntos: " + puntos);
+                labelVideojuego.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: " + fondo + "; -fx-border-radius: 5; -fx-margin: 5px;");
+                labelVideojuego.setAlignment(Pos.CENTER);  // Centrar el contenido dentro de cada label
+                listaVideojuegos.getChildren().add(labelVideojuego);
             }
+
+            // Añadir la lista de videojuegos al ScrollPane
+            scrollPane.setContent(listaVideojuegos);
+
+            // Añadir el título y el ScrollPane al layout principal
+            layout.getChildren().addAll(lblTitulo, scrollPane);
         } else {
-            // Si no hay datos, mostramos un mensaje de error
-            layout.getChildren().add(new Label("No se encontró la clasificación de videojuegos."));
+            layout.getChildren().addAll(lblTitulo, new Label("No se encontró la clasificación de videojuegos."));
         }
 
-        // Agregar botón para volver al menú
+        // Crear botón de volver
         Button btnVolver = new Button("Volver al menú de Clasificación");
-        btnVolver.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));  // Método que te lleva al menú de clasificación
+        btnVolver.setStyle("-fx-background-color: #757575; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;");
+        btnVolver.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));  // Acción para volver al menú de clasificación
 
-        // Crear ScrollPane para hacer la vista desplazable
-        ScrollPane scrollPane = new ScrollPane(layout);
-        scrollPane.setFitToWidth(true);
+        // Añadir el botón al layout principal
+        layout.getChildren().add(btnVolver);
 
-        // Colocar el ScrollPane y el botón de volver en un VBox
-        VBox vbox = new VBox(10, scrollPane, btnVolver);
-        Scene scene = new Scene(vbox, 400, 300);
-        stage.setScene(scene);
+        // Crear la escena y mostrarla
+        Scene escenaClasificacionVideojuegos = new Scene(layout, 450, 400);
+        stage.setScene(escenaClasificacionVideojuegos);
     }
 }
