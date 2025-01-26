@@ -43,13 +43,32 @@ public class VistaJavaFX implements Vista {
         });
     }
 
+    private void cargarDatosIniciales() {
+        jugadores.setAll((ObservableList<Jugador>) routerCV.ejecutarAccion("jugadores", "listarJugadores"));
+        videoJuegos.setAll((ObservableList<Videojuego>) routerCV.ejecutarAccion("videojuegos", "listarVideojuegos"));
+    }
+
+    /// /////////Menus
+    private void aplicarEstiloBoton(Button boton) {
+        boton.setStyle("-fx-background-color: #e63946; "
+                + "-fx-text-fill: white; "
+                + "-fx-font-size: 16px; "
+                + "-fx-font-weight: bold; "
+                + "-fx-pref-width: 250px; "
+                + "-fx-pref-height: 40px; "
+                + "-fx-border-radius: 15px; "
+                + "-fx-background-radius: 15px; "
+                + "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 0, 5);");
+    }
+
     private Scene crearMenuPrincipal() {
-        Label lblTitulo = new Label("=== Menú Principal ===");
-        Button btnJugadores = new Button("1. Jugadores");
-        Button btnVideojuegos = new Button("2. Videojuegos");
-        Button btnPartidas = new Button("3. Partidas");
-        Button btnEstadisticas = new Button("4. Estadísticas");
-        Button btnSalir = new Button("5. Salir");
+        Label lblTitulo = new Label("Menú Principal");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+        Button btnJugadores = new Button("Agregar Jugador");
+        Button btnVideojuegos = new Button("Agregar Videojuego");
+        Button btnPartidas = new Button("Agregar Partida");
+        Button btnEstadisticas = new Button("Ver Estadísticas");
+        Button btnSalir = new Button("Salir");
 
         btnJugadores.setOnAction(e -> stage.setScene(crearMenuJugadores()));
         btnVideojuegos.setOnAction(e -> stage.setScene(crearMenuVideojuegos()));
@@ -57,19 +76,27 @@ public class VistaJavaFX implements Vista {
         btnEstadisticas.setOnAction(e -> stage.setScene(crearMenuEstadisticas()));
         btnSalir.setOnAction(e -> stage.close());
 
-        VBox layout = new VBox(10, lblTitulo, btnJugadores, btnVideojuegos, btnPartidas, btnEstadisticas, btnSalir);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
-        return new Scene(layout, 400, 300);
+        VBox layout = new VBox(15, lblTitulo, btnJugadores, btnVideojuegos, btnPartidas, btnEstadisticas, btnSalir);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #333333;");
+
+        aplicarEstiloBoton(btnJugadores);
+        aplicarEstiloBoton(btnVideojuegos);
+        aplicarEstiloBoton(btnPartidas);
+        aplicarEstiloBoton(btnEstadisticas);
+        aplicarEstiloBoton(btnSalir);
+
+        return new Scene(layout, 400, 500);
     }
 
     private Scene crearMenuJugadores() {
-        Label lblTitulo = new Label("=== Menú de Jugadores ===");
-        Button btnAgregar = new Button("1. Agregar Jugador");
-        Button btnActualizar = new Button("2. Actualizar Jugador");
-        Button btnEliminar = new Button("3. Eliminar Jugador");
-        Button btnVerID = new Button("4. Ver Jugador por ID");
-        Button btnListar = new Button("5. Ver todos los Jugadores");
-        Button btnVolver = new Button("6. Volver al menú principal");
+        Label lblTitulo = new Label("Menú de Jugadores");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+        Button btnAgregar = new Button("Agregar Jugador");
+        Button btnActualizar = new Button("Actualizar Jugador");
+        Button btnEliminar = new Button("Eliminar Jugador");
+        Button btnVerID = new Button("Ver Jugador por ID");
+        Button btnListar = new Button("Ver todos los Jugadores");
+        Button btnVolver = new Button("Volver");
 
         btnAgregar.setOnAction(e -> agregarJugador());
         btnActualizar.setOnAction(e -> actualizarJugador());
@@ -78,19 +105,28 @@ public class VistaJavaFX implements Vista {
         btnListar.setOnAction(e -> listarJugadores());
         btnVolver.setOnAction(e -> stage.setScene(crearMenuPrincipal()));
 
-        VBox layout = new VBox(10, lblTitulo, btnAgregar, btnActualizar, btnEliminar, btnVerID, btnListar, btnVolver);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
-        return new Scene(layout, 400, 300);
+        VBox layout = new VBox(15, lblTitulo, btnAgregar, btnActualizar, btnEliminar, btnVerID, btnListar, btnVolver);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #333333;");
+
+        aplicarEstiloBoton(btnAgregar);
+        aplicarEstiloBoton(btnActualizar);
+        aplicarEstiloBoton(btnEliminar);
+        aplicarEstiloBoton(btnVerID);
+        aplicarEstiloBoton(btnListar);
+        aplicarEstiloBoton(btnVolver);
+
+        return new Scene(layout, 400, 500);
     }
 
     private Scene crearMenuVideojuegos() {
-        Label lblTitulo = new Label("=== Menú de Videojuegos ===");
-        Button btnAgregar = new Button("1. Agregar Videojuego");
-        Button btnActualizar = new Button("2. Actualizar Videojuego");
-        Button btnEliminar = new Button("3. Eliminar Videojuego");
-        Button btnVerID = new Button("4. Ver Videojuego por ID");
-        Button btnListar = new Button("5. Ver todos los Videojuegos");
-        Button btnVolver = new Button("6. Volver al menú principal");
+        Label lblTitulo = new Label("Menú de Videojuegos");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+        Button btnAgregar = new Button("Agregar Videojuego");
+        Button btnActualizar = new Button("Actualizar Videojuego");
+        Button btnEliminar = new Button("Eliminar Videojuego");
+        Button btnVerID = new Button("Ver Videojuego por ID");
+        Button btnListar = new Button("Ver todos los Videojuegos");
+        Button btnVolver = new Button("Volver");
 
         btnAgregar.setOnAction(e -> agregarVideojuego());
         btnActualizar.setOnAction(e -> actualizarVideojuego());
@@ -99,19 +135,28 @@ public class VistaJavaFX implements Vista {
         btnListar.setOnAction(e -> listarVideojuegos());
         btnVolver.setOnAction(e -> stage.setScene(crearMenuPrincipal()));
 
-        VBox layout = new VBox(10, lblTitulo, btnAgregar, btnActualizar, btnEliminar, btnVerID, btnListar, btnVolver);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
-        return new Scene(layout, 400, 300);
+        VBox layout = new VBox(15, lblTitulo, btnAgregar, btnActualizar, btnEliminar, btnVerID, btnListar, btnVolver);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #333333;");
+
+        aplicarEstiloBoton(btnAgregar);
+        aplicarEstiloBoton(btnActualizar);
+        aplicarEstiloBoton(btnEliminar);
+        aplicarEstiloBoton(btnVerID);
+        aplicarEstiloBoton(btnListar);
+        aplicarEstiloBoton(btnVolver);
+
+        return new Scene(layout, 400, 500);
     }
 
     private Scene crearMenuPartidas() {
-        Label lblTitulo = new Label("=== Menú de Partidas ===");
-        Button btnAgregar = new Button("1. Agregar Partida");
-        Button btnActualizar = new Button("2. Actualizar Partida");
-        Button btnEliminar = new Button("3. Eliminar Partida");
-        Button btnVerID = new Button("4. Ver Partida por ID");
-        Button btnListar = new Button("5. Ver todas las Partidas");
-        Button btnVolver = new Button("6. Volver al menú principal");
+        Label lblTitulo = new Label("Menú de Partidas");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+        Button btnAgregar = new Button("Agregar Partida");
+        Button btnActualizar = new Button("Actualizar Partida");
+        Button btnEliminar = new Button("Eliminar Partida");
+        Button btnVerID = new Button("Ver Partida por ID");
+        Button btnListar = new Button("Ver todas las Partidas");
+        Button btnVolver = new Button("Volver");
 
         btnAgregar.setOnAction(e -> agregarPartida());
         btnActualizar.setOnAction(e -> actualizarPartida());
@@ -120,18 +165,27 @@ public class VistaJavaFX implements Vista {
         btnListar.setOnAction(e -> listarPartidas());
         btnVolver.setOnAction(e -> stage.setScene(crearMenuPrincipal()));
 
-        VBox layout = new VBox(10, lblTitulo, btnAgregar, btnActualizar, btnEliminar, btnVerID, btnListar, btnVolver);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
-        return new Scene(layout, 400, 300);
+        VBox layout = new VBox(15, lblTitulo, btnAgregar, btnActualizar, btnEliminar, btnVerID, btnListar, btnVolver);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #333333;");
+
+        aplicarEstiloBoton(btnAgregar);
+        aplicarEstiloBoton(btnActualizar);
+        aplicarEstiloBoton(btnEliminar);
+        aplicarEstiloBoton(btnVerID);
+        aplicarEstiloBoton(btnListar);
+        aplicarEstiloBoton(btnVolver);
+
+        return new Scene(layout, 400, 500);
     }
 
     private Scene crearMenuEstadisticas() {
-        Label lblTitulo = new Label("=== Menú de Estadísticas ===");
-        Button btnHoras = new Button("1. Ver Estadísticas de horas de juego");
-        Button btnPuntuacion = new Button("2. Ver Estadísticas de puntuación");
-        Button btnExperiencia = new Button("3. Ver Estadísticas de experiencia");
-        Button btnClasificacion = new Button("4. Ver Clasificación de Videojuegos");
-        Button btnVolver = new Button("5. Volver al menú principal");
+        Label lblTitulo = new Label("Menú de Estadísticas");
+        lblTitulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-alignment: center;");
+        Button btnHoras = new Button("Top horas de juego");
+        Button btnPuntuacion = new Button("Top de puntuación");
+        Button btnExperiencia = new Button("Top de experiencia");
+        Button btnClasificacion = new Button("Top de Videojuegos");
+        Button btnVolver = new Button("Volver");
 
         btnHoras.setOnAction(e -> verEstadisticasHoras());
         btnPuntuacion.setOnAction(e -> verEstadisticasPuntuacion());
@@ -139,25 +193,18 @@ public class VistaJavaFX implements Vista {
         btnClasificacion.setOnAction(e -> mostrarClasificacionVideojuegos());
         btnVolver.setOnAction(e -> stage.setScene(crearMenuPrincipal()));
 
-        VBox layout = new VBox(10, lblTitulo, btnHoras, btnPuntuacion, btnExperiencia, btnClasificacion, btnVolver);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
-        return new Scene(layout, 400, 300);
+        VBox layout = new VBox(15, lblTitulo, btnHoras, btnPuntuacion, btnExperiencia, btnClasificacion, btnVolver);
+        layout.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: #333333;");
+
+        aplicarEstiloBoton(btnHoras);
+        aplicarEstiloBoton(btnPuntuacion);
+        aplicarEstiloBoton(btnExperiencia);
+        aplicarEstiloBoton(btnClasificacion);
+        aplicarEstiloBoton(btnVolver);
+
+        return new Scene(layout, 400, 500);
     }
 
-    private Scene crearMenuStub(String titulo) {
-        Label lblTitulo = new Label("=== " + titulo + " ===");
-        Button btnVolver = new Button("Volver al menú principal");
-        btnVolver.setOnAction(e -> stage.setScene(crearMenuPrincipal()));
-
-        VBox layout = new VBox(10, lblTitulo, btnVolver);
-        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
-        return new Scene(layout, 400, 300);
-    }
-
-    private void cargarDatosIniciales() {
-        jugadores.setAll((ObservableList<Jugador>) routerCV.ejecutarAccion("jugadores", "listarJugadores"));
-        videoJuegos.setAll((ObservableList<Videojuego>) routerCV.ejecutarAccion("videojuegos", "listarVideojuegos"));
-    }
 
     /// //////////////////////// JUGADOR
     private void agregarJugador() {
