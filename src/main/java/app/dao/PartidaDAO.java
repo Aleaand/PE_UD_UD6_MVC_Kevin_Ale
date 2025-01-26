@@ -8,10 +8,21 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
 
+/**
+ * Clase que gestiona las operaciones CRUD para las entidades de tipo Partida en la base de datos.
+ * Implementa la interfaz {@link DAO} para proporcionar métodos de acceso a datos para las partidas.
+ */
 public class PartidaDAO implements DAO<Partida> {
 
+    /**
+     * Guarda una nueva partida en la base de datos.
+     *
+     * @param partida la instancia de la partida a guardar.
+     * @return mensaje indicando si la operación fue exitosa o no.
+     */
     @Override
     public String guardar(Partida partida) {
         String sql = "INSERT INTO Partidas (id_videojuego, id_jugador, fecha_partida, horas_jugadas, puntos_obtenidos) VALUES (?, ?, ?, ?, ?)";
@@ -39,6 +50,12 @@ public class PartidaDAO implements DAO<Partida> {
         }
     }
 
+    /**
+     * Busca una partida por su ID en la base de datos.
+     *
+     * @param id el ID de la partida a buscar.
+     * @return una instancia de la clase {@link Partida} si la encuentra, de lo contrario, retorna null.
+     */
     @Override
     public Partida buscarPorId(int id) {
         String sql = "SELECT p.id, p.horas_jugadas, p.puntos_obtenidos, p.fecha_partida, " +
@@ -49,7 +66,6 @@ public class PartidaDAO implements DAO<Partida> {
                 "JOIN Videojuegos v ON p.id_videojuego = v.id " +
                 "WHERE p.id = ?";
 
-
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -58,13 +74,16 @@ public class PartidaDAO implements DAO<Partida> {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // Obtener el jugador
-                Jugador jugador = new Jugador(rs.getInt("jugador_id"), rs.getString("jugador_nombre"), Integer.parseInt(rs.getString("nivel")),  Integer.parseInt(rs.getString("puntuacion")));
+                Jugador jugador = new Jugador(rs.getInt("jugador_id"), rs.getString("jugador_nombre"),
+                        Integer.parseInt(rs.getString("nivel")), Integer.parseInt(rs.getString("puntuacion")));
 
                 // Obtener el videojuego
-                Videojuego videoJuego = new Videojuego (rs.getInt("videojuego_id"), rs.getString("videojuego_nombre"), rs.getString("genero"), rs.getDouble("precio"));
+                Videojuego videoJuego = new Videojuego(rs.getInt("videojuego_id"), rs.getString("videojuego_nombre"),
+                        rs.getString("genero"), rs.getDouble("precio"));
 
                 // Crear la partida
-                Partida partida = new Partida(rs.getInt("id"), jugador, videoJuego, rs.getInt("horas_jugadas"), rs.getInt("puntos_obtenidos"), rs.getDate("fecha_partida").toLocalDate());
+                Partida partida = new Partida(rs.getInt("id"), jugador, videoJuego, rs.getInt("horas_jugadas"),
+                        rs.getInt("puntos_obtenidos"), rs.getDate("fecha_partida").toLocalDate());
 
                 return partida;
             }
@@ -73,18 +92,25 @@ public class PartidaDAO implements DAO<Partida> {
         }
         return null;
     }
+
+    /**
+     * Obtiene una lista de los videojuegos con la mayor cantidad de horas jugadas y total de jugadores.
+     *
+     * @return una lista de mapas, donde cada mapa contiene el nombre del videojuego,
+     * total de horas jugadas y total de jugadores que han jugado ese videojuego.
+     */
     public List<Map<String, Object>> obtenerClasificacionVideojuegos() {
         List<Map<String, Object>> clasificacion = new ArrayList<>();
 
         String query = """
-        SELECT v.titulo AS nombre_videojuego, 
-               SUM(p.horas_jugadas) AS total_horas,
-               COUNT(DISTINCT p.id_jugador) AS total_jugadores
-        FROM partidas p
-        JOIN videojuegos v ON p.id_videojuego = v.id
-        GROUP BY v.id, v.titulo
-        ORDER BY total_horas DESC, total_jugadores DESC;
-    """;
+                    SELECT v.titulo AS nombre_videojuego, 
+                           SUM(p.horas_jugadas) AS total_horas,
+                           COUNT(DISTINCT p.id_jugador) AS total_jugadores
+                    FROM partidas p
+                    JOIN videojuegos v ON p.id_videojuego = v.id
+                    GROUP BY v.id, v.titulo
+                    ORDER BY total_horas DESC, total_jugadores DESC;
+                """;
 
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
@@ -104,6 +130,11 @@ public class PartidaDAO implements DAO<Partida> {
         return clasificacion;
     }
 
+    /**
+     * Obtiene una lista de todas las partidas almacenadas en la base de datos.
+     *
+     * @return una lista de instancias de la clase {@link Partida}.
+     */
     @Override
     public List<Partida> listarTodos() {
         String sql = "SELECT p.id, p.horas_jugadas, p.puntos_obtenidos, p.fecha_partida, " +
@@ -121,13 +152,16 @@ public class PartidaDAO implements DAO<Partida> {
 
             while (rs.next()) {
                 // Obtener el jugador
-                Jugador jugador = new Jugador(rs.getInt("jugador_id"), rs.getString("jugador_nombre"), Integer.parseInt(rs.getString("nivel")),  Integer.parseInt(rs.getString("puntuacion")));
+                Jugador jugador = new Jugador(rs.getInt("jugador_id"), rs.getString("jugador_nombre"),
+                        Integer.parseInt(rs.getString("nivel")), Integer.parseInt(rs.getString("puntuacion")));
 
                 // Obtener el videojuego
-                Videojuego videoJuego = new Videojuego(rs.getInt("videojuego_id"), rs.getString("videojuego_nombre"), rs.getString("genero"), rs.getDouble("precio"));
+                Videojuego videoJuego = new Videojuego(rs.getInt("videojuego_id"), rs.getString("videojuego_nombre"),
+                        rs.getString("genero"), rs.getDouble("precio"));
 
                 // Crear la partida
-                Partida partida = new Partida(rs.getInt("id"), jugador, videoJuego, rs.getInt("horas_jugadas"), rs.getInt("puntos_obtenidos"), rs.getDate("fecha_partida").toLocalDate());
+                Partida partida = new Partida(rs.getInt("id"), jugador, videoJuego, rs.getInt("horas_jugadas"),
+                        rs.getInt("puntos_obtenidos"), rs.getDate("fecha_partida").toLocalDate());
 
                 partidas.add(partida);
             }
@@ -137,6 +171,12 @@ public class PartidaDAO implements DAO<Partida> {
         return partidas;
     }
 
+    /**
+     * Elimina una partida de la base de datos.
+     *
+     * @param id el ID de la partida a eliminar.
+     * @return mensaje indicando si la operación fue exitosa o no.
+     */
     @Override
     public String eliminar(int id) {
         String sql = "DELETE FROM Partidas WHERE id = ?";
@@ -151,6 +191,13 @@ public class PartidaDAO implements DAO<Partida> {
             return "Error partida no eliminada";
         }
     }
+
+    /**
+     * Actualiza los detalles de una partida existente.
+     *
+     * @param partida la instancia de la partida con los nuevos detalles.
+     * @return mensaje indicando si la operación fue exitosa o no.
+     */
     public String actualizar(Partida partida) {
         String sql = "UPDATE Partidas SET id_videojuego = ?, id_jugador = ?, fecha_partida = ?, " +
                 "horas_jugadas = ?, puntos_obtenidos = ? WHERE id = ?";
@@ -169,13 +216,18 @@ public class PartidaDAO implements DAO<Partida> {
             if (filasActualizadas > 0) {
                 return ("Partida actualizada con éxito: " + partida);
             } else {
-                return("Error no se encontró la partida con ID: " + partida.getId());
+                return ("Error no se encontró la partida con ID: " + partida.getId());
             }
         } catch (SQLException e) {
             return "Error al actualizar la partida con ID: " + partida.getId();
         }
     }
-    //verEstadisticasHoras ver las 10 partidas mas largas
+
+    /**
+     * Obtiene las 10 partidas con la mayor cantidad de horas jugadas.
+     *
+     * @return una lista de partidas ordenadas por horas jugadas, limitando a las 10 más largas.
+     */
     public List<Partida> verEstadisticasHoras() {
         List<Partida> partidas = new ArrayList<>();
         String sql = "SELECT p.id, p.horas_jugadas, p.puntos_obtenidos, p.fecha_partida, " +

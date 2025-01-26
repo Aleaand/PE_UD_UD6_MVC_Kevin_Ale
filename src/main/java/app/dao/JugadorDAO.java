@@ -6,8 +6,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * La clase {@code JugadorDAO} es responsable de gestionar las operaciones de acceso a datos para los objetos {@code Jugador}.
+ * Implementa la interfaz {@code DAO} para las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre la base de datos.
+ */
 public class JugadorDAO implements DAO<Jugador> {
 
+    /**
+     * Guarda un nuevo jugador en la base de datos.
+     * Inserta un nuevo registro en la tabla {@code jugadores} con los detalles del jugador proporcionado.
+     *
+     * @param jugador El objeto {@code Jugador} a guardar.
+     * @return Un mensaje indicando si el jugador fue guardado correctamente o si ocurrió un error.
+     */
     @Override
     public String guardar(Jugador jugador) {
         String sql = "INSERT INTO jugadores (nombre, nivel, puntuacion) VALUES (?, ?, ?)";
@@ -30,6 +41,13 @@ public class JugadorDAO implements DAO<Jugador> {
         }
     }
 
+    /**
+     * Busca un jugador en la base de datos por su ID.
+     * Recupera un jugador específico de la tabla {@code jugadores} utilizando el ID proporcionado.
+     *
+     * @param id El ID del jugador a buscar.
+     * @return El objeto {@code Jugador} correspondiente al ID proporcionado, o {@code null} si no se encuentra.
+     */
     @Override
     public Jugador buscarPorId(int id) {
         String sql = "SELECT * FROM jugadores WHERE id = ?";
@@ -51,6 +69,12 @@ public class JugadorDAO implements DAO<Jugador> {
         return jugador;
     }
 
+    /**
+     * Obtiene todos los jugadores de la base de datos.
+     * Recupera todos los registros de la tabla {@code jugadores} y los devuelve como una lista de objetos {@code Jugador}.
+     *
+     * @return Una lista de objetos {@code Jugador}.
+     */
     @Override
     public List<Jugador> listarTodos() {
         String sql = "SELECT * FROM jugadores";
@@ -70,6 +94,13 @@ public class JugadorDAO implements DAO<Jugador> {
         return jugadores;
     }
 
+    /**
+     * Elimina un jugador de la base de datos por su ID.
+     * Borra el registro correspondiente al jugador con el ID proporcionado de la tabla {@code jugadores}.
+     *
+     * @param id El ID del jugador a eliminar.
+     * @return Un mensaje indicando si el jugador fue eliminado correctamente o si ocurrió un error.
+     */
     @Override
     public String eliminar(int id) {
         String sql = "DELETE FROM jugadores WHERE id = ?";
@@ -84,7 +115,14 @@ public class JugadorDAO implements DAO<Jugador> {
             return "Error jugador no eliminado";
         }
     }
-    // Método para actualizar los detalles de un jugador en la base de datos
+
+    /**
+     * Actualiza los detalles de un jugador en la base de datos.
+     * Modifica el nombre, nivel y puntuación de un jugador específico en la tabla {@code jugadores}.
+     *
+     * @param jugador El objeto {@code Jugador} con los nuevos detalles.
+     * @return Un mensaje indicando si el jugador fue actualizado correctamente o si ocurrió un error.
+     */
     public String actualizar(Jugador jugador) {
         String sql = "UPDATE jugadores SET nombre = ?, nivel = ?, puntuacion = ? WHERE id = ?";
 
@@ -106,7 +144,13 @@ public class JugadorDAO implements DAO<Jugador> {
             return "Error al actualizar el jugador";
         }
     }
-    //verEstadisticasPuntuacion TOP10 mejores puntuaciones
+
+    /**
+     * Obtiene las estadísticas de los jugadores con las mejores puntuaciones.
+     * Devuelve una lista con los 10 jugadores con mayor puntuación de la tabla {@code jugadores}.
+     *
+     * @return Una lista de los 10 jugadores con mayor puntuación.
+     */
     public List<Jugador> verEstadisticasPuntuacion() {
         List<Jugador> jugadores = new ArrayList<>();
         String sql = "SELECT * FROM jugadores ORDER BY puntuacion DESC LIMIT 10"; // consulta para obtener top 10 puntuaciones
@@ -125,7 +169,13 @@ public class JugadorDAO implements DAO<Jugador> {
 
         return jugadores;
     }
-    //verEstadisticasExperiencia TOP10 mejores experiencias
+
+    /**
+     * Obtiene las estadísticas de los jugadores con los mayores niveles de experiencia.
+     * Devuelve una lista con los 10 jugadores con el nivel más alto de la tabla {@code jugadores}.
+     *
+     * @return Una lista de los 10 jugadores con mayor nivel.
+     */
     public List<Jugador> verEstadisticasExperiencia() {
         List<Jugador> jugadores = new ArrayList<>();
         String sql = "SELECT * FROM jugadores ORDER BY nivel DESC LIMIT 10"; // consulta para obtener top 10 experiencia
@@ -137,8 +187,6 @@ public class JugadorDAO implements DAO<Jugador> {
             while (rs.next()) {
                 jugadores.add(new Jugador(rs.getInt("id"), rs.getString("nombre"),
                         rs.getInt("nivel"), rs.getInt("puntuacion")));
-                // Suponiendo que tienes un campo `experiencia` en la tabla de jugadores,
-                // si no, tendrías que ajustarlo a cómo está en tu modelo.
             }
         } catch (SQLException e) {
             e.printStackTrace();

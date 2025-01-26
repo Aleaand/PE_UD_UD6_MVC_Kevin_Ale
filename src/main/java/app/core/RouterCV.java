@@ -10,21 +10,45 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * La clase {@code RouterCV} es responsable de gestionar las vistas y controladores dentro de la aplicación.
+ * Esta clase actúa como un enrutador para las vistas y controladores, permitiendo registrar, obtener e inicializar vistas
+ * y ejecutar acciones en los controladores.
+ *
+ * <p>El router también maneja el paso de parámetros correctos a los métodos de los controladores mediante el uso de reflexión.</p>
+ */
 public class RouterCV {
     private final Map<String, Object> controladores = new HashMap<>();
     private final Map<String, Vista> vistas = new HashMap<>();
     private final Stage primaryStage;
 
+    /**
+     * Constructor de la clase {@code RouterCV}.
+     * Inicializa el router con el escenario principal de JavaFX.
+     *
+     * @param primaryStage El escenario principal que se utilizará para las vistas JavaFX.
+     */
     public RouterCV(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
-    // Registrar un controlador
+    /**
+     * Registra un controlador en el enrutador.
+     *
+     * @param nombre      Nombre con el que se registrará el controlador.
+     * @param controlador El controlador que se quiere registrar.
+     */
     public void registrarControlador(String nombre, Object controlador) {
         controladores.put(nombre, controlador);
     }
 
-    // Registrar una vista
+    /**
+     * Registra una vista en el enrutador.
+     * Si la vista es una instancia de {@link VistaJavaFX}, se le asigna el {@link Stage} principal.
+     *
+     * @param nombre Nombre con el que se registrará la vista.
+     * @param vista  La vista que se quiere registrar.
+     */
     public void registrarVista(String nombre, Vista vista) {
         if (vista instanceof VistaJavaFX) {
             ((VistaJavaFX) vista).setStage(primaryStage);
@@ -32,17 +56,31 @@ public class RouterCV {
         vistas.put(nombre, vista);
     }
 
-    // Obtener un controlador
+    /**
+     * Obtiene un controlador registrado por su nombre.
+     *
+     * @param nombre El nombre del controlador que se quiere obtener.
+     * @return El controlador registrado, o {@code null} si no se encuentra.
+     */
     public Object obtenerControlador(String nombre) {
         return controladores.get(nombre);
     }
 
-    // Obtener una vista
+    /**
+     * Obtiene una vista registrada por su nombre.
+     *
+     * @param nombre El nombre de la vista que se quiere obtener.
+     * @return La vista registrada, o {@code null} si no se encuentra.
+     */
     public Vista obtenerVista(String nombre) {
         return vistas.get(nombre);
     }
 
-    // Inicializar una vista
+    /**
+     * Inicializa una vista registrada, es decir, llama al método {@code iniciar()} de la vista.
+     *
+     * @param nombre El nombre de la vista que se desea inicializar.
+     */
     public void inicializarVista(String nombre) {
         Vista vista = vistas.get(nombre);
         if (vista != null) {
@@ -52,8 +90,15 @@ public class RouterCV {
         }
     }
 
-
-    // Ejecutar una acción en un controlador
+    /**
+     * Ejecuta una acción en un controlador, pasándole los parámetros necesarios.
+     * Se utiliza reflexión para invocar el método correspondiente del controlador.
+     *
+     * @param nombre     El nombre del controlador donde se ejecutará la acción.
+     * @param accion     El nombre de la acción que se desea ejecutar.
+     * @param parametros Los parámetros que se pasarán al método de la acción.
+     * @return El resultado de la acción ejecutada, o {@code null} si hubo un error.
+     */
     public Object ejecutarAccion(String nombre, String accion, Object... parametros) {
         Object controlador = controladores.get(nombre);
         if (controlador != null) {
@@ -69,7 +114,12 @@ public class RouterCV {
         return null;
     }
 
-    // Metodo para convertir parámetros a tipos adecuados
+    /**
+     * Convierte un array de parámetros a los tipos adecuados para ser usados en reflexión.
+     *
+     * @param parametros El array de parámetros que se desea convertir.
+     * @return Un array de clases que representa los tipos de los parámetros.
+     */
     private Class<?>[] convertirParametros(Object[] parametros) {
         if (parametros == null) {
             return new Class<?>[0];
@@ -90,7 +140,5 @@ public class RouterCV {
                     return parametro.getClass(); // Cualquier otro tipo
                 })
                 .toArray(Class<?>[]::new);
-
     }
 }
-

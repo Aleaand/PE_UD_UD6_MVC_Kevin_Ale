@@ -6,8 +6,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementación de la interfaz {@link DAO} para la entidad {@link Videojuego}.
+ * Esta clase proporciona operaciones CRUD (crear, leer, actualizar, eliminar) para la tabla de videojuegos.
+ */
 public class VideoJuegoDAO implements DAO<Videojuego> {
 
+    /**
+     * Guarda un nuevo videojuego en la base de datos.
+     *
+     * @param videojuego El objeto {@link Videojuego} que se desea guardar.
+     * @return Un mensaje indicando si la operación fue exitosa o no.
+     */
     @Override
     public String guardar(Videojuego videojuego) {
         String sql = "INSERT INTO videojuegos (titulo, genero, precio) VALUES (?, ?, ?)";
@@ -30,6 +40,12 @@ public class VideoJuegoDAO implements DAO<Videojuego> {
         }
     }
 
+    /**
+     * Busca un videojuego por su ID en la base de datos.
+     *
+     * @param id El ID del videojuego a buscar.
+     * @return El objeto {@link Videojuego} correspondiente al ID proporcionado, o null si no se encuentra.
+     */
     @Override
     public Videojuego buscarPorId(int id) {
         String sql = "SELECT * FROM videojuegos WHERE id = ?";
@@ -51,6 +67,11 @@ public class VideoJuegoDAO implements DAO<Videojuego> {
         return videojuego;
     }
 
+    /**
+     * Lista todos los videojuegos registrados en la base de datos.
+     *
+     * @return Una lista de objetos {@link Videojuego} con todos los videojuegos.
+     */
     @Override
     public List<Videojuego> listarTodos() {
         String sql = "SELECT * FROM videojuegos";
@@ -70,6 +91,12 @@ public class VideoJuegoDAO implements DAO<Videojuego> {
         return videojuegos;
     }
 
+    /**
+     * Elimina un videojuego de la base de datos por su ID.
+     *
+     * @param id El ID del videojuego a eliminar.
+     * @return Un mensaje indicando si la operación fue exitosa o no.
+     */
     @Override
     public String eliminar(int id) {
         String sql = "DELETE FROM videojuegos WHERE id = ?";
@@ -84,7 +111,13 @@ public class VideoJuegoDAO implements DAO<Videojuego> {
             return "Error Videojuego no eliminado";
         }
     }
-    // Método para actualizar los detalles de un videojuego
+
+    /**
+     * Actualiza los detalles de un videojuego en la base de datos.
+     *
+     * @param videojuego El objeto {@link Videojuego} con los nuevos detalles.
+     * @return Un mensaje indicando si la operación fue exitosa o no.
+     */
     public String actualizar(Videojuego videojuego) {
         String sql = "UPDATE videojuegos SET titulo = ?, genero = ?, precio = ? WHERE id = ?";
 
