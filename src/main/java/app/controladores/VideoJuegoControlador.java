@@ -3,6 +3,7 @@ package app.controladores;
 import app.dao.VideoJuegoDAO;
 import app.modelos.Videojuego;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,11 @@ public class VideoJuegoControlador {
     public String eliminarVideojuego(int id) {
         return videoJuegoDAO.eliminar(id);
     }
-    public String actualizarJugador(Videojuego videojuego  ) {
+    public String actualizarVideojuego(int id, String titulo, String genero, double precio ) {
+        Videojuego videojuego = videoJuegoDAO.buscarPorId(id);
+        videojuego.setTitulo(titulo);
+        videojuego.setGenero(genero);
+        videojuego.setPrecio(BigDecimal.valueOf(precio));
         return videoJuegoDAO.actualizar(videojuego);
     }
 }

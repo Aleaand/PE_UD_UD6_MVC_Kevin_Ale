@@ -29,6 +29,7 @@ public class Partida {
 
     @Column(name = "puntos_obtenidos")
     private Integer puntosObtenidos;
+
     public Partida(int id, Jugador jugador, Videojuego videoJuego, int horasJugadas, int puntosObtenidos, LocalDate fechaPartida) {
         this.id = id;
         this.idVideojuego = videoJuego;
@@ -45,6 +46,7 @@ public class Partida {
         this.puntosObtenidos = puntosObtenidos;
         this.fechaPartida = fechaPartida;
     }
+
     public Integer getId() {
         return id;
     }
@@ -95,13 +97,22 @@ public class Partida {
 
     @Override
     public String toString() {
-        return "Partida{" +
-                "id=" + id +
-                ", idVideojuego=" + idVideojuego +
-                ", idJugador=" + idJugador +
-                ", fechaPartida=" + fechaPartida +
-                ", horasJugadas=" + horasJugadas +
-                ", puntosObtenidos=" + puntosObtenidos +
-                '}';
+        return String.format(
+                "\n🎮 Partida 🏆\n" +
+                        "╔════════════════════════════════════════╗\n" +
+                        "║ 🆔 ID:             %-22d ║\n" +
+                        "║ 🎮 Videojuego:     %-22s ║\n" +
+                        "║ 👤 Jugador:        %-22s ║\n" +
+                        "║ 📅 Fecha:          %-22s ║\n" +
+                        "║ ⏳ Horas Jugadas:   %-22d ║\n" +
+                        "║ ⭐ Puntos Obtenidos:%-22d ║\n" +
+                        "╚════════════════════════════════════════╝\n",
+                id,
+                (idVideojuego != null ? idVideojuego.getTitulo() : "Desconocido"),
+                (idJugador != null ? idJugador.getNombre() : "Desconocido"),
+                (fechaPartida != null ? fechaPartida.toString() : "N/A"),
+                (horasJugadas != null ? horasJugadas : 0),
+                (puntosObtenidos != null ? puntosObtenidos : 0)
+        );
     }
 }

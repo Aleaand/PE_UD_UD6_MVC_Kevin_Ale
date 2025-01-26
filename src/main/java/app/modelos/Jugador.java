@@ -8,7 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "jugadores")
-public class Jugador{
+public class Jugador {
     @Id
     @ColumnDefault("nextval('jugadores_id_seq')")
     @Column(name = "id", nullable = false)
@@ -24,6 +24,7 @@ public class Jugador{
     @ColumnDefault("0")
     @Column(name = "puntuacion")
     private Integer puntuacion;
+
     public Jugador(Integer id, String nombre, Integer nivel, Integer puntuacion) {
         this.id = id;
         this.nombre = nombre;
@@ -34,6 +35,7 @@ public class Jugador{
     public Jugador() {
 
     }
+
     public Integer getId() {
         return id;
     }
@@ -68,11 +70,18 @@ public class Jugador{
 
     @Override
     public String toString() {
-        return "Jugador{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", puntuacion=" + puntuacion +
-                '}';
+        return String.format(
+                "\n👾 Jugador 🏅\n" +
+                        "╔═══════════════════════════════════════╗\n" +
+                        "║ 🆔 ID:            %-22d ║\n" +
+                        "║ 👤 Nombre:        %-22s ║\n" +
+                        "║ 🏆 Nivel:         %-22d ║\n" +
+                        "║ 🌟 Puntuación:    %-22d ║\n" +
+                        "╚═══════════════════════════════════════╝\n",
+                id,
+                (nombre != null ? nombre : "Desconocido"),
+                nivel,
+                puntuacion
+        );
     }
 }

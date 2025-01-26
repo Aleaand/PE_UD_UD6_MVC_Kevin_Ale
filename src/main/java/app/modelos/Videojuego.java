@@ -26,6 +26,7 @@ public class Videojuego {
 
     @OneToMany(mappedBy = "idVideojuego")
     private Set<Partida> partidas = new LinkedHashSet<>();
+
     public Videojuego(int videojuegoId, String videojuegoNombre, String s, double i) {
         id = videojuegoId;
         titulo = videojuegoNombre;
@@ -36,6 +37,7 @@ public class Videojuego {
     public Videojuego() {
 
     }
+
     public Integer getId() {
         return id;
     }
@@ -78,12 +80,15 @@ public class Videojuego {
 
     @Override
     public String toString() {
-        return "Videojuego{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", genero='" + genero + '\'' +
-                ", precio=" + precio +
-                ", partidas=" + partidas +
-                '}';
+        return String.format(
+                "\n🎮 Videojuego 📜\n" +
+                        "╔════════════════════════════════════════╗\n" +
+                        "║ 🆔 ID:          %-22d ║\n" +
+                        "║ 📌 Título:      %-22s ║\n" +
+                        "║ 🎭 Género:      %-22s ║\n" +
+                        "║ 💰 Precio:      $%-21.2f ║\n" +
+                        "╚════════════════════════════════════════╝\n",
+                id, titulo, genero, precio
+        );
     }
 }
