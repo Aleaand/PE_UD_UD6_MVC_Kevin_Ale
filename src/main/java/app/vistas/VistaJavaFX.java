@@ -1479,7 +1479,7 @@ public class VistaJavaFX implements Vista {
             for (int i = 0; i < Math.min(clasificacion.size(), 10); i++) {
                 Map<String, Object> clasificacionMap = clasificacion.get(i);
                 String titulo = (String) clasificacionMap.get("nombre_videojuego");
-                Integer puntos = (Integer) clasificacionMap.get("total_horas");
+                Integer totalHoras = (Integer) clasificacionMap.get("total_horas");
 
                 // Establecer estilo degradado para los primeros tres puestos
                 String fondo = "#444444"; // Fondo gris estándar
@@ -1493,7 +1493,7 @@ public class VistaJavaFX implements Vista {
 
                 // Crear una etiqueta para cada videojuego
                 Label labelVideojuego = new Label(
-                        (i + 1) + ". Videojuego: " + titulo + " - Puntos: " + puntos);
+                        (i + 1) + ". Videojuego: " + titulo + " - HOras: " + totalHoras);
                 labelVideojuego.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: " + fondo + "; -fx-border-radius: 5; -fx-margin: 5px;");
                 labelVideojuego.setAlignment(Pos.CENTER);  // Centrar el contenido dentro de cada label
                 listaVideojuegos.getChildren().add(labelVideojuego);
