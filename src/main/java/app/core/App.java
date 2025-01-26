@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * <p>El método {@link #main(String[])} lanza la aplicación JavaFX.</p>
  */
 public class App extends Application {
-
+public String tipo;
     /**
      * Método principal para iniciar la aplicación JavaFX.
      * Este método crea el {@link RouterCV}, registra los controladores de la aplicación
@@ -47,9 +47,9 @@ public class App extends Application {
         router.registrarVista("vistaConsola", new VistaConsolaRouter(router));
 
         // Inicializar la vista deseada
-        router.inicializarVista("vistaJavaFX");
+        //router.inicializarVista("vistaJavaFX");
         // Alternativamente, puedes inicializar la vista de consola:
-        //router.inicializarVista("vistaConsola");
+        router.inicializarVista("vistaConsola");
     }
 
     /**

@@ -39,8 +39,7 @@ public class VistaConsolaRouter implements Vista {
             System.out.println("║  5  ║ Salir del sistema                           ║");
             System.out.println("╠═════╩══════════════════════════════════════════════╣");
             System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+            opcion = obtenerNumeroEnteroValido(scanner);
 
             switch (opcion) {
                 case 1 -> menuJugador(scanner);
@@ -72,8 +71,7 @@ public class VistaConsolaRouter implements Vista {
             System.out.println("║  6  ║ Volver al menú principal                     ║");
             System.out.println("╠═════╩══════════════════════════════════════════════╣");
             System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir nueva línea
+            opcion = obtenerNumeroEnteroValido(scanner);
 
             switch (opcion) {
                 case 1 -> agregarJugador(scanner);
@@ -102,8 +100,7 @@ public class VistaConsolaRouter implements Vista {
             System.out.println("║  6  ║ Volver al menú principal                     ║");
             System.out.println("╠═════╩══════════════════════════════════════════════╣");
             System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir nueva línea
+            opcion = obtenerNumeroEnteroValido(scanner);
 
             switch (opcion) {
                 case 1 -> agregarVideojuego(scanner);
@@ -131,8 +128,7 @@ public class VistaConsolaRouter implements Vista {
             System.out.println("║  6  ║ Volver al menú principal                     ║");
             System.out.println("╠═════╩══════════════════════════════════════════════╣");
             System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir nueva línea
+            opcion = obtenerNumeroEnteroValido(scanner);
 
             switch (opcion) {
                 case 1 -> agregarPartida(scanner);
@@ -160,8 +156,7 @@ public class VistaConsolaRouter implements Vista {
             System.out.println("║  5  ║ Volver al menú principal                    ║");
             System.out.println("╠═════╩══════════════════════════════════════════════╣");
             System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir nueva línea
+            opcion = obtenerNumeroEnteroValido(scanner);
 
             switch (opcion) {
                 case 1 -> verEstadisticasHoras();
@@ -177,11 +172,11 @@ public class VistaConsolaRouter implements Vista {
 
     private void agregarJugador(Scanner scanner) {
         System.out.print("Ingrese nombre del jugador: ");
-        String nombre = scanner.nextLine();
+        String nombre = obtenerTextoValido(scanner);
         System.out.print("Ingrese nivel del jugador: ");
-        int nivel = scanner.nextInt();
+        int nivel = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese puntuación del jugador: ");
-        int puntuacion = scanner.nextInt();
+        int puntuacion = obtenerNumeroEnteroValido(scanner);
 
         System.out.println(router.ejecutarAccion("jugadores", "agregarJugador", nombre, nivel, puntuacion));
     }
@@ -192,27 +187,25 @@ public class VistaConsolaRouter implements Vista {
         int puntuacion = 0;
 
         System.out.println("ID del jugador: :");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese el nuevo nombre del jugador: ");
-        nombre = scanner.nextLine();
-
+        nombre = obtenerTextoValido(scanner);
         System.out.print("Ingrese el nuevo nivel del jugador: ");
-        nivel = scanner.nextInt();
+        nivel = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese la nueva puntuación del jugador: ");
-        puntuacion = scanner.nextInt();
+        puntuacion = obtenerNumeroEnteroValido(scanner);
         System.out.println(router.ejecutarAccion("jugadores", "actualizarJugador", id, nombre, nivel, puntuacion));
     }
 
     private void eliminarJugador(Scanner scanner) {
         System.out.print("Ingrese ID del jugador que desea eliminar: ");
-        int id = scanner.nextInt();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.println(router.ejecutarAccion("jugadores", "eliminarJugador", id));
     }
 
     private void verJugadorID(Scanner scanner) {
         System.out.print("Ingrese ID del jugador que desea ver: ");
-        int id = scanner.nextInt();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.println(router.ejecutarAccion("jugadores", "verJugadorID", id));
     }
 
@@ -259,11 +252,11 @@ public class VistaConsolaRouter implements Vista {
 
     private void agregarVideojuego(Scanner scanner) {
         System.out.print("Ingrese título del videojuego: ");
-        String titulo = scanner.nextLine();
+        String titulo = obtenerTextoValido(scanner);
         System.out.print("Ingrese género del videojuego: ");
-        String genero = scanner.nextLine();
+        String genero = obtenerTextoValido(scanner);
         System.out.print("Ingrese precio del videojuego: ");
-        double precio = scanner.nextDouble();
+        double precio = obtenerNumeroDecimalValido(scanner);
 
         System.out.println(router.ejecutarAccion("videojuegos", "agregarVideojuego", titulo, genero, precio));
     }
@@ -273,26 +266,25 @@ public class VistaConsolaRouter implements Vista {
         String genero = "";
         double precio = 0.0;
         System.out.println("ID del videojuego: :");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese el nuevo título del videojuego: ");
-        titulo = scanner.nextLine();
+        titulo = obtenerTextoValido(scanner);
         System.out.print("Ingrese el nuevo género del videojuego: ");
-        genero = scanner.nextLine();
+        genero = obtenerTextoValido(scanner);
         System.out.print("Ingrese el nuevo precio del videojuego: ");
-        precio = scanner.nextDouble();
+        precio = obtenerNumeroDecimalValido(scanner);
         System.out.println(router.ejecutarAccion("videojuegos", "actualizarVideojuego", id, titulo, genero, precio));
     }
 
     private void eliminarVideojuego(Scanner scanner) {
         System.out.print("Ingrese ID del videojuego que desea eliminar: ");
-        int id = scanner.nextInt();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.println(router.ejecutarAccion("videojuegos", "eliminarVideojuego", id));
     }
 
     private void verVideojuegoID(Scanner scanner) {
         System.out.print("Ingrese ID del videojuego que desea ver: ");
-        int id = scanner.nextInt();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.println(router.ejecutarAccion("videojuegos", "getVideojuego", id));
     }
 
@@ -340,18 +332,15 @@ public class VistaConsolaRouter implements Vista {
 
     private void agregarPartida(Scanner scanner) {
         System.out.print("Ingrese ID del jugador: ");
-        int idJugador = scanner.nextInt();
-        scanner.nextLine();  // Limpiar el buffer de la línea pendiente
+        int idJugador = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese ID del videojuego: ");
-        int idVideojuego = scanner.nextInt();
-        scanner.nextLine();  // Limpiar el buffer de la línea pendiente
+        int idVideojuego = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese duración de la partida (en horas): ");
-        int duracion = scanner.nextInt();
-        scanner.nextLine();  // Limpiar el buffer de la línea pendiente
+        int duracion = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese fecha de la partida (formato yyyy-mm-dd): ");
-        String fechaStr = scanner.nextLine();
+        String fechaStr = obtenerTextoValido(scanner);
         System.out.println("Ingrese el numero de puntos conseguidos");
-        int puntos = scanner.nextInt();
+        int puntos = obtenerNumeroEnteroValido(scanner);
         LocalDate fecha = LocalDate.parse(fechaStr);
         Jugador jugador = (Jugador) router.ejecutarAccion("jugadores", "verJugadorID", idJugador);
         Videojuego videojuego = (Videojuego) router.ejecutarAccion("videojuegos", "getVideojuego", idVideojuego);
@@ -365,18 +354,17 @@ public class VistaConsolaRouter implements Vista {
         int puntuacion = 0;
         LocalDate fecha = null;
         System.out.println("ID de la partida: :");
-        int id = scanner.nextInt();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese el nuevo ID del jugador: ");
-        idJugador = scanner.nextInt();
+        idJugador = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese el nuevo ID del videojuego: ");
-        idVideojuego = scanner.nextInt();
+        idVideojuego = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese la nueva duración de la partida (int): ");
-        duracion = scanner.nextInt();
-        scanner.nextLine();  // Limpiar el buffer de la línea pendiente
+        duracion = obtenerNumeroEnteroValido(scanner);
         System.out.print("Ingrese la nueva fecha de la partida (formato yyyy-mm-dd): ");
-        String fechaStr = scanner.nextLine();
+        String fechaStr = obtenerTextoValido(scanner);
         System.out.print("Ingrese la puntuacion: ");
-        puntuacion = scanner.nextInt();
+        puntuacion = obtenerNumeroEnteroValido(scanner);
 
         fecha = LocalDate.parse(fechaStr);
         Jugador jugador = (Jugador) router.ejecutarAccion("jugadores", "verJugadorID", idJugador);
@@ -387,13 +375,13 @@ public class VistaConsolaRouter implements Vista {
 
     private void eliminarPartida(Scanner scanner) {
         System.out.print("Ingrese ID de la partida que desea eliminar: ");
-        int id = scanner.nextInt();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.println(router.ejecutarAccion("partidas", "eliminarPartida", id));
     }
 
     private void verPartidaID(Scanner scanner) {
         System.out.print("Ingrese ID de la partida que desea ver: ");
-        int id = scanner.nextInt();
+        int id = obtenerNumeroEnteroValido(scanner);
         System.out.println(router.ejecutarAccion("partidas", "getPartida", id));
     }
 
@@ -630,6 +618,51 @@ public class VistaConsolaRouter implements Vista {
 
         // Línea inferior de la tabla
         System.out.println("╚═════╩" + "═".repeat(maxTituloVideojuegoLength + 2) + "╩════════════╩════════════╝");
+    }
+
+    // Método para obtener solo texto (sin números ni caracteres especiales)
+    public static String obtenerTextoValido(Scanner scanner) {
+        String input;
+        while (true) {
+            input = scanner.nextLine();
+
+            // Verificamos que el input solo contenga letras y espacios
+            if (input.matches("[a-zA-ZáéíóúÁÉÍÓÚÑñ\\s]+")) {
+                return input; // Retorna el texto válido
+            } else {
+                System.out.println("Por favor, ingresa solo texto válido (letras y espacios).");
+            }
+        }
+    }
+
+    // Método para obtener un número entero válido
+    public static int obtenerNumeroEnteroValido(Scanner scanner) {
+        int numero;
+        while (true) {
+            // Intentamos capturar un número entero
+            if (scanner.hasNextInt()) {
+                numero = scanner.nextInt();
+                return numero; // Retorna el número entero
+            } else {
+                System.out.println("Por favor, ingresa un número entero válido.");
+                scanner.next(); // Limpiar el buffer
+            }
+        }
+    }
+
+    // Método para obtener un número decimal (double) válido
+    public static double obtenerNumeroDecimalValido(Scanner scanner) {
+        double numero;
+        while (true) {
+            // Intentamos capturar un número decimal
+            if (scanner.hasNextDouble()) {
+                numero = scanner.nextDouble();
+                return numero; // Retorna el número decimal
+            } else {
+                System.out.println("Por favor, ingresa un número decimal válido.");
+                scanner.next(); // Limpiar el buffer
+            }
+        }
     }
 }
 
