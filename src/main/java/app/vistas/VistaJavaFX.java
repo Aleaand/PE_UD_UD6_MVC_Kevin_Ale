@@ -39,7 +39,7 @@ public class VistaJavaFX implements Vista {
             stage.setScene(crearMenuPrincipal());
             stage.show();
 
-            cargarDatosIniciales();
+          //  cargarDatosIniciales();
         });
     }
 
