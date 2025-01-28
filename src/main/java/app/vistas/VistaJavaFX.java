@@ -14,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -817,12 +819,14 @@ public class VistaJavaFX implements Vista {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Videojuego no encontrado.", ButtonType.OK);
                     alert.showAndWait();
                 } else {
-                    // Mostrar detalles del videojuego
+                    BigDecimal precio = videojuego.getPrecio();
+                    BigDecimal precioFormateado = precio.setScale(2, RoundingMode.HALF_UP);
+                            // Mostrar detalles del videojuego
                     Alert alert = new Alert(Alert.AlertType.INFORMATION,
                             "ID: " + videojuego.getId() + "\n" +
                                     "Título: " + videojuego.getTitulo() + "\n" +
                                     "Género: " + videojuego.getGenero() + "\n" +
-                                    "Precio: " + videojuego.getPrecio(), ButtonType.OK);
+                                    "Precio: " + precioFormateado, ButtonType.OK);
                     alert.showAndWait();
                 }
             } catch (NumberFormatException ex) {
@@ -868,11 +872,13 @@ public class VistaJavaFX implements Vista {
             VBox listaVideojuegos = new VBox(5);  // Espaciado entre los videojuegos
             for (Videojuego videojuego : videojuegos) {
                 // Crear una label con todos los detalles del videojuego
+                BigDecimal precio = videojuego.getPrecio();
+                BigDecimal precioFormateado = precio.setScale(2, RoundingMode.HALF_UP);
                 Label labelVideojuego = new Label(
                         "ID: " + videojuego.getId() + "\n" +
                                 "Título: " + videojuego.getTitulo() + "\n" +
                                 "Género: " + videojuego.getGenero() + "\n" +
-                                "Precio: " + videojuego.getPrecio());
+                                "Precio: " + precioFormateado);
                 labelVideojuego.setStyle("-fx-text-fill: white; -fx-padding: 10px; -fx-background-color: #444444; -fx-border-radius: 5; -fx-margin: 5px;");
                 labelVideojuego.setAlignment(Pos.CENTER); // Centrar el contenido dentro de cada label
                 listaVideojuegos.getChildren().add(labelVideojuego);
